@@ -1,12 +1,14 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { queryClient } from "./lib/queryClient";
+import ServiceWorkerManager from "./components/ServiceWorkerManager";
+import { LazyAdminDashboard, withLazyLoading, withSimpleLoading } from "./components/lazy/LazyAdminComponents";
 import Index from "./pages/Index";
 import AuthForm from "./components/AuthForm";
 import UserDashboard from "./components/UserDashboard";
-import AdminDashboard from "./components/AdminDashboard";
 import ReportsPage from "./components/ReportsPage";
 import UserReportsPage from "./components/UserReportsPage";
 import SmartFeedsPage from "./components/SmartFeedsPage";
@@ -31,23 +33,27 @@ import AdminContentManagement from "./components/AdminContentManagement";
 import AdminSystemMonitoring from "./components/AdminSystemMonitoring";
 import AdminSecurityCenter from "./components/AdminSecurityCenter";
 
-const queryClient = new QueryClient();
+// Lazy load heavy components
+const LazyAdminBotManagement = withLazyLoading(React.lazy(() => import("./components/AdminBotManagement")));
+const LazyAdminUsersManagement = withLazyLoading(React.lazy(() => import("./components/AdminUsersManagement")));
+const LazyAdminReportsManagement = withLazyLoading(React.lazy(() => import("./components/AdminReportsManagement")));
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+    <ServiceWorkerManager>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<AuthForm />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/alerts" element={<SecurityAlertsPage />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/bots" element={<AdminBotManagement />} />
-          <Route path="/admin/users" element={<AdminUsersManagement />} />
-          <Route path="/admin/reports" element={<AdminReportsManagement />} />
+          <Route path="/admin" element={<LazyAdminDashboard />} />
+          <Route path="/admin/bots" element={<LazyAdminBotManagement />} />
+          <Route path="/admin/users" element={<LazyAdminUsersManagement />} />
+          <Route path="/admin/reports" element={<LazyAdminReportsManagement />} />
           <Route path="/admin/threats" element={<AdminThreatsPage />} />
           <Route path="/admin/recovery" element={<AdminRecoveryJobsPage />} />
         <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
@@ -70,6 +76,7 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
+    </ServiceWorkerManager>
   </QueryClientProvider>
 );
 
