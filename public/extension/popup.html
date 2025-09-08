@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 350px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .logo {
+      font-size: 24px;
+      margin-right: 8px;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .status-card {
+      background: #f9fafb;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      border-left: 4px solid #22c55e;
+    }
+
+    .status-card.warning { border-left-color: #f59e0b; }
+    .status-card.danger { border-left-color: #ef4444; }
+
+    .status-text {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .status-desc {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 12px;
+      background: #f3f4f6;
+      border-radius: 6px;
+    }
+
+    .stat-number {
+      font-size: 18px;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .loading {
+      text-align: center;
+      color: #6b7280;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🛡️</div>
+    <div class="title">ScamShield</div>
+  </div>
+
+  <div id="loading" class="loading">
+    Scanning current page...
+  </div>
+
+  <div id="content" style="display: none;">
+    <div id="status-card" class="status-card">
+      <div id="status-text" class="status-text">Page is Safe</div>
+      <div id="status-desc" class="status-desc">No threats detected</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div id="threats-blocked" class="stat-number">0</div>
+        <div class="stat-label">Threats Blocked</div>
+      </div>
+      <div class="stat-item">
+        <div id="scans-today" class="stat-number">0</div>
+        <div class="stat-label">Scans Today</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="rescan-btn" class="btn btn-primary">Re-scan Current Page</button>
+      <button id="report-btn" class="btn btn-secondary">Report False Positive</button>
+      <button id="dashboard-btn" class="btn btn-secondary">Open Dashboard</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
