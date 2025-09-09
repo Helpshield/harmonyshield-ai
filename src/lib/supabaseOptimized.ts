@@ -83,26 +83,30 @@ export const optimizedSupabase = {
     return this.pool.executeQuery(queryFn);
   },
   
-  // Batch operations for better performance
-  async batchInsert<T>(
-    table: string,
-    data: T[],
-    batchSize: number = 100
+  // Batch operations helper (use with specific table queries)
+  async batchExecute<T>(
+    operations: (() => Promise<{ data: T[] | null; error: any }>)[],
+    batchSize: number = 5
   ): Promise<{ data: T[] | null; error: any }> {
     const results: T[] = [];
     const errors: any[] = [];
     
-    for (let i = 0; i < data.length; i += batchSize) {
-      const batch = data.slice(i, i + batchSize);
+    for (let i = 0; i < operations.length; i += batchSize) {
+      const batch = operations.slice(i, i + batchSize);
       
       try {
-        const result = await this.insert(table, batch);
-        if (result.data) {
-          results.push(...result.data);
-        }
-        if (result.error) {
-          errors.push(result.error);
-        }
+        const batchResults = await Promise.all(
+          batch.map(op => this.executeSelect(op))
+        );
+        
+        batchResults.forEach(result => {
+          if (result.data) {
+            results.push(...result.data);
+          }
+          if (result.error) {
+            errors.push(result.error);
+          }
+        });
       } catch (error) {
         errors.push(error);
       }
@@ -115,25 +119,22 @@ export const optimizedSupabase = {
   },
   
   // Cached queries for frequently accessed data
-  async cachedSelect<T>(
-    table: string,
-    columns: string = '*',
-    filters: Record<string, any> = {},
-    cacheKey?: string,
+  async cachedQuery<T>(
+    queryFn: () => Promise<{ data: T[] | null; error: any }>,
+    cacheKey: string,
     cacheTTL: number = 5 * 60 * 1000 // 5 minutes
   ): Promise<{ data: T[] | null; error: any }> {
     const cache = new Map();
-    const key = cacheKey || `${table}-${JSON.stringify(filters)}`;
-    const cached = cache.get(key);
+    const cached = cache.get(cacheKey);
     
     if (cached && Date.now() - cached.timestamp < cacheTTL) {
       return cached.data;
     }
     
-    const result = await this.select<T>(table, columns, filters);
+    const result = await this.executeSelect(queryFn);
     
     if (result.data) {
-      cache.set(key, {
+      cache.set(cacheKey, {
         data: result,
         timestamp: Date.now()
       });
