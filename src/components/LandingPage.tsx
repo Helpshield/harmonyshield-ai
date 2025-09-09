@@ -95,7 +95,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-subtle">
       {/* Navigation */}
-      <nav className="container-mobile py-4 sm:py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <nav className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex flex-col sm:flex-row justify-between items-center gap-4 max-w-7xl mx-auto">
         <Logo variant="default" size="md" linkTo="/" />
         <div className="hidden md:flex items-center space-x-8">
           <Link to="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</Link>
@@ -128,7 +128,7 @@ const LandingPage = () => {
             placeholder="blur"
           />
         </div>
-        <div className="relative container-mobile py-16 sm:py-20 md:py-24 text-center">
+        <div className="relative w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24 text-center max-w-7xl mx-auto">
           <div className="animate-fade-in-up max-w-5xl mx-auto">
             <Badge variant="outline" className="mb-6 px-4 py-2 text-sm">
               🔒 Trusted by 50,000+ Users Worldwide
@@ -184,7 +184,7 @@ const LandingPage = () => {
 
       {/* Features Section */}
       <section id="features" className="py-16 sm:py-20 md:py-24 bg-background">
-        <div className="container-mobile">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <Badge variant="secondary" className="mb-4">Features</Badge>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -298,7 +298,7 @@ const LandingPage = () => {
 
       {/* Testimonials Section */}
       <section id="testimonials" className="py-16 sm:py-20 md:py-24 bg-muted/30">
-        <div className="container-mobile">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <Badge variant="outline" className="mb-4">Testimonials</Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6">
@@ -379,7 +379,7 @@ const LandingPage = () => {
 
       {/* About Section */}
       <section id="about" className="py-16 sm:py-20 md:py-24 bg-background">
-        <div className="container-mobile">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge variant="secondary" className="mb-4">About Harmony Shield</Badge>
@@ -446,7 +446,7 @@ const LandingPage = () => {
 
       {/* CTA Section */}
       <section className="py-16 sm:py-20 md:py-24 bg-gradient-hero">
-        <div className="container-mobile text-center">
+        <div className="w-full px-4 sm:px-6 lg:px-8 text-center max-w-7xl mx-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-foreground mb-6">
             Ready to Secure Your Digital Life?
           </h2>
@@ -469,8 +469,8 @@ const LandingPage = () => {
 
       {/* Footer */}
       <footer id="contact" className="bg-card py-12 sm:py-16">
-        <div className="container-mobile">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-5 gap-8 mb-8">
             {/* Company Info */}
             <div className="md:col-span-2">
               <Logo variant="default" size="lg" linkTo="/" className="mb-6" />
@@ -490,29 +490,63 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Legal Links */}
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Quick Links</h4>
+              <h4 className="font-semibold text-foreground mb-4">Legal</h4>
               <div className="space-y-2">
-                <Link to="/auth" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Sign Up
+                <Link to="/privacy-policy" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Privacy Policy
                 </Link>
-                <Link to="/auth" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Sign In
+                <Link to="/terms-of-service" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Terms of Service
                 </Link>
-                <Link to="#features" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Features
+                <Link to="/data-protection" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Data Protection
                 </Link>
-                <Link to="#about" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  About
+                <Link to="/cookie-policy" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Cookie Policy
                 </Link>
               </div>
             </div>
 
-            {/* Support */}
+            {/* Compliance Links */}
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Support</h4>
+              <h4 className="font-semibold text-foreground mb-4">Compliance</h4>
               <div className="space-y-2">
+                <Link to="/soc-compliance" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  SOC 2 Compliance
+                </Link>
+                <Link to="/gdpr" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  GDPR Compliance
+                </Link>
+                <Link to="/security-certifications" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Security Certifications
+                </Link>
+                <Link to="/audit-reports" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Audit Reports
+                </Link>
+              </div>
+            </div>
+
+            {/* Help & Newsletter */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-4">Help & Updates</h4>
+              <div className="space-y-2">
+                <Link to="/help-center" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Help Center
+                </Link>
+                <Link to="/faq" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  FAQ
+                </Link>
+                <Link to="/contact-support" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Contact Support
+                </Link>
+                <Link to="/newsletter" className="block text-muted-foreground hover:text-foreground transition-colors">
+                  Security Newsletter
+                </Link>
+              </div>
+              <div className="mt-4 pt-4 border-t border-border">
+                <p className="text-xs text-muted-foreground mb-2">Get security updates</p>
                 <div className="flex items-center space-x-2 text-muted-foreground">
                   <Mail className="h-4 w-4" />
                   <span className="text-sm">support@harmonyshield.com</span>

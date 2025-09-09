@@ -176,15 +176,7 @@ const ServiceWorkerManager: React.FC<ServiceWorkerManagerProps> = ({ children })
         </div>
       )}
       
-      {/* Connection restored indicator */}
-      {isOnline && (
-        <div className="fixed top-4 left-4 z-40">
-          <div className="flex items-center gap-2 text-success text-sm">
-            <Wifi className="h-4 w-4" />
-            <span>Online</span>
-          </div>
-        </div>
-      )}
+      {/* Connection restored indicator - Removed for cleaner UI */}
     </>
   );
 };
