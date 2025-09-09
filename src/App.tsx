@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,7 +6,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { queryClient } from "./lib/queryClient";
 import ServiceWorkerManager from "./components/ServiceWorkerManager";
-import { LazyAdminDashboard, withLazyLoading, withSimpleLoading } from "./components/lazy/LazyAdminComponents";
+import { AdminLoadingFallback } from "./components/lazy/LazyAdminComponents";
 import Index from "./pages/Index";
 import AuthForm from "./components/AuthForm";
 import UserDashboard from "./components/UserDashboard";
@@ -34,10 +34,11 @@ import AdminContentManagement from "./components/AdminContentManagement";
 import AdminSystemMonitoring from "./components/AdminSystemMonitoring";
 import AdminSecurityCenter from "./components/AdminSecurityCenter";
 
-// Lazy load heavy components
-const LazyAdminBotManagement = withLazyLoading(React.lazy(() => import("./components/AdminBotManagement")));
-const LazyAdminUsersManagement = withLazyLoading(React.lazy(() => import("./components/AdminUsersManagement")));
-const LazyAdminReportsManagement = withLazyLoading(React.lazy(() => import("./components/AdminReportsManagement")));
+// Lazy load heavy components with proper error boundaries
+const LazyAdminDashboard = React.lazy(() => import("./components/AdminDashboard"));
+const LazyAdminBotManagement = React.lazy(() => import("./components/AdminBotManagement"));
+const LazyAdminUsersManagement = React.lazy(() => import("./components/AdminUsersManagement"));
+const LazyAdminReportsManagement = React.lazy(() => import("./components/AdminReportsManagement"));
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -51,10 +52,26 @@ const App = () => (
           <Route path="/auth" element={<AuthForm />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/alerts" element={<SecurityAlertsPage />} />
-          <Route path="/admin" element={<LazyAdminDashboard />} />
-          <Route path="/admin/bots" element={<LazyAdminBotManagement />} />
-          <Route path="/admin/users" element={<LazyAdminUsersManagement />} />
-          <Route path="/admin/reports" element={<LazyAdminReportsManagement />} />
+          <Route path="/admin" element={
+            <Suspense fallback={<AdminLoadingFallback />}>
+              <LazyAdminDashboard />
+            </Suspense>
+          } />
+          <Route path="/admin/bots" element={
+            <Suspense fallback={<AdminLoadingFallback />}>
+              <LazyAdminBotManagement />
+            </Suspense>
+          } />
+          <Route path="/admin/users" element={
+            <Suspense fallback={<AdminLoadingFallback />}>
+              <LazyAdminUsersManagement />
+            </Suspense>
+          } />
+          <Route path="/admin/reports" element={
+            <Suspense fallback={<AdminLoadingFallback />}>
+              <LazyAdminReportsManagement />
+            </Suspense>
+          } />
           <Route path="/admin/threats" element={<AdminThreatsPage />} />
           <Route path="/admin/recovery" element={<AdminRecoveryJobsPage />} />
         <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
