@@ -74,7 +74,12 @@ const App = () => (
           } />
           <Route path="/admin/threats" element={<AdminThreatsPage />} />
           <Route path="/admin/recovery" element={<AdminRecoveryJobsPage />} />
-        <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+          <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+          <Route path="/logo" element={
+            <Suspense fallback={<AdminLoadingFallback />}>
+              {React.createElement(React.lazy(() => import("./components/shared/Logo").then(m => ({ default: m.LogoPage }))))}
+            </Suspense>
+          } />
         <Route path="/admin/ab-testing" element={<AdminABTestingPage />} />
         <Route path="/admin/contents" element={<AdminContentManagement />} />
         <Route path="/admin/monitoring" element={<AdminSystemMonitoring />} />
