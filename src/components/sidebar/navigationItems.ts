@@ -29,7 +29,8 @@ export const userNavigationItems: NavigationItem[] = [
 ];
 
 export const aiNavigationItems: NavigationItem[] = [
-  { title: 'AI Bots', url: '/bots', icon: Bot, badge: 'NEW' },
+  { title: 'AI Chat Assistant', url: '/chat-assistant', icon: Bot, badge: 'NEW' },
+  { title: 'AI Bots', url: '/bots', icon: Bot },
   { title: 'AI Analyzer', url: '/analyzer', icon: Zap },
   { title: 'AI Links', url: '/links', icon: Link },
 ];

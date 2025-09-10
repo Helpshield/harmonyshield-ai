@@ -33,6 +33,7 @@ import AdminABTestingPage from "./components/AdminABTestingPage";
 import AdminContentManagement from "./components/AdminContentManagement";
 import AdminSystemMonitoring from "./components/AdminSystemMonitoring";
 import AdminSecurityCenter from "./components/AdminSecurityCenter";
+import SecurityChatAssistant from "./components/SecurityChatAssistant";
 
 // Lazy load heavy components with proper error boundaries
 const LazyAdminDashboard = React.lazy(() => import("./components/AdminDashboard"));
@@ -85,6 +86,7 @@ const App = () => (
         <Route path="/admin/monitoring" element={<AdminSystemMonitoring />} />
         <Route path="/admin/security" element={<AdminSecurityCenter />} />
           <Route path="/admin/manual" element={<ManualPage />} />
+          <Route path="/chat-assistant" element={<SecurityChatAssistant />} />
           <Route path="/bots" element={<BotPackagesPage />} />
           <Route path="/reports" element={<UserReportsPage />} />
           <Route path="/recovery" element={<RecoveryPage />} />
