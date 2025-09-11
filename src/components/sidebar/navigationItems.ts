@@ -42,6 +42,8 @@ export const adminNavigationItems: NavigationItem[] = [
   { title: 'Reports Management', url: '/admin/reports', icon: FileText },
   { title: 'Bot Management', url: '/admin/bots', icon: Bot },
   { title: 'Threat Reports', url: '/admin/threats', icon: AlertTriangle, badge: 'LIVE' },
+  { title: 'Social Management', url: '/admin/social', icon: Users, badge: 'NEW' },
+  { title: 'Integration Config', url: '/admin/api-config', icon: Settings, badge: 'NEW' },
   { title: 'Admin Manual', url: '/admin/manual', icon: BookOpen },
   { title: 'Analytics', url: '/admin/analytics', icon: BarChart3 },
   { title: 'Content Management', url: '/admin/contents', icon: Settings },

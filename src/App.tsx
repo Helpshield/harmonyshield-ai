@@ -33,6 +33,8 @@ import AdminABTestingPage from "./components/AdminABTestingPage";
 import AdminContentManagement from "./components/AdminContentManagement";
 import AdminSystemMonitoring from "./components/AdminSystemMonitoring";
 import AdminSecurityCenter from "./components/AdminSecurityCenter";
+import { AdminSocialManagement } from "./components/AdminSocialManagement";
+import { AdminIntegrationConfig } from "./components/AdminIntegrationConfig";
 import SecurityChatAssistant from "./components/SecurityChatAssistant";
 
 // Lazy load heavy components with proper error boundaries
@@ -85,6 +87,8 @@ const App = () => (
         <Route path="/admin/contents" element={<AdminContentManagement />} />
         <Route path="/admin/monitoring" element={<AdminSystemMonitoring />} />
         <Route path="/admin/security" element={<AdminSecurityCenter />} />
+        <Route path="/admin/social" element={<AdminSocialManagement />} />
+        <Route path="/admin/api-config" element={<AdminIntegrationConfig />} />
           <Route path="/admin/manual" element={<ManualPage />} />
           <Route path="/chat-assistant" element={<SecurityChatAssistant />} />
           <Route path="/bots" element={<BotPackagesPage />} />
