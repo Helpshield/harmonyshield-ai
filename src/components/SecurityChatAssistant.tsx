@@ -22,7 +22,8 @@ import {
   Globe,
   FileText,
   RefreshCw,
-  Trash2
+  Trash2,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -31,8 +32,6 @@ const SecurityChatAssistant = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [urlToScan, setUrlToScan] = useState('');
-  const [showFileUpload, setShowFileUpload] = useState(false);
-  const [showUrlScan, setShowUrlScan] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -57,13 +56,21 @@ const SecurityChatAssistant = () => {
   }, [messages]);
 
   const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return;
+    if (!inputMessage.trim() && !urlToScan.trim()) return;
     
     // Auto-detect language if not set
-    const detectedLang = selectedLanguage === 'auto' ? detectLanguage(inputMessage) : selectedLanguage;
+    const detectedLang = selectedLanguage === 'auto' ? detectLanguage(inputMessage || urlToScan) : selectedLanguage;
     
-    await sendMessage(inputMessage, detectedLang);
-    setInputMessage('');
+    // If there's a URL to scan, scan it first
+    if (urlToScan.trim()) {
+      await handleUrlScan();
+    }
+    
+    // If there's a message, send it
+    if (inputMessage.trim()) {
+      await sendMessage(inputMessage, detectedLang);
+      setInputMessage('');
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -99,7 +106,6 @@ const SecurityChatAssistant = () => {
       });
     }
     
-    setShowFileUpload(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -110,7 +116,6 @@ const SecurityChatAssistant = () => {
     
     await scanURL(urlToScan, selectedLanguage);
     setUrlToScan('');
-    setShowUrlScan(false);
     
     toast({
       title: "URL Scan",
@@ -290,92 +295,92 @@ const SecurityChatAssistant = () => {
           </Card>
         )}
 
-        {/* Action Buttons */}
-        <div className="flex gap-2 justify-center">
-          <Button
-            variant="outline"
-            onClick={() => setShowFileUpload(!showFileUpload)}
-            className="flex items-center gap-2"
-          >
-            <Upload className="h-4 w-4" />
-            Scan File
-          </Button>
-          
-          <Button
-            variant="outline"
-            onClick={() => setShowUrlScan(!showUrlScan)}
-            className="flex items-center gap-2"
-          >
-            <Link className="h-4 w-4" />
-            Scan URL
-          </Button>
-        </div>
-
-        {/* File Upload */}
-        {showFileUpload && (
-          <Card>
-            <CardContent className="p-4">
-              <div className="space-y-4">
-                <h3 className="text-sm font-medium">Upload File for Security Scan</h3>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  onChange={handleFileUpload}
-                  className="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Supported file types: All common file formats. Maximum size: 10MB
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* URL Scan */}
-        {showUrlScan && (
-          <Card>
-            <CardContent className="p-4">
-              <div className="space-y-4">
-                <h3 className="text-sm font-medium">Scan URL for Security Threats</h3>
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Enter URL to scan (e.g., https://example.com)"
-                    value={urlToScan}
-                    onChange={(e) => setUrlToScan(e.target.value)}
-                    className="flex-1"
-                  />
-                  <Button onClick={handleUrlScan} disabled={!urlToScan.trim() || isLoading}>
-                    <Shield className="h-4 w-4 mr-2" />
-                    Scan
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  We'll check the URL against known threat databases and analyze its safety.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Message Input */}
+        {/* Enhanced Message Input with Integrated Tools */}
         <Card>
           <CardContent className="p-4">
-            <div className="flex gap-2">
-              <Textarea
-                placeholder="Ask me about security threats, upload files to scan, or get safety advice..."
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                className="flex-1 min-h-[80px] resize-none"
-                disabled={isLoading}
+            <div className="space-y-3">
+              {/* Attachment Preview */}
+              {urlToScan && (
+                <div className="flex items-center gap-2 p-2 bg-muted rounded-md">
+                  <Link className="h-4 w-4 text-primary" />
+                  <span className="text-sm text-muted-foreground flex-1">{urlToScan}</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setUrlToScan('')}
+                    className="h-6 w-6 p-0"
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              )}
+              
+              {/* Main Input Area */}
+              <div className="flex gap-2">
+                <div className="flex-1 space-y-2">
+                  <Textarea
+                    placeholder="Ask about security, paste URLs to scan, or type your message..."
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    className="min-h-[80px] resize-none"
+                    disabled={isLoading}
+                  />
+                  
+                  {/* URL Input for Scanning */}
+                  <Input
+                    placeholder="Paste URL here to scan for threats (e.g., https://example.com)"
+                    value={urlToScan}
+                    onChange={(e) => setUrlToScan(e.target.value)}
+                    className="text-sm"
+                  />
+                </div>
+                
+                {/* Action Buttons */}
+                <div className="flex flex-col gap-2">
+                  <Button
+                    onClick={handleSendMessage}
+                    disabled={(!inputMessage.trim() && !urlToScan.trim()) || isLoading}
+                    className="h-10"
+                  >
+                    <Send className="h-4 w-4" />
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="h-10"
+                    disabled={isLoading}
+                  >
+                    <Upload className="h-4 w-4" />
+                  </Button>
+                  
+                  {urlToScan.trim() && (
+                    <Button
+                      variant="outline"
+                      onClick={handleUrlScan}
+                      disabled={isLoading}
+                      className="h-10"
+                    >
+                      <Shield className="h-4 w-4" />
+                    </Button>
+                  )}
+                </div>
+              </div>
+              
+              {/* Hidden File Input */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                onChange={handleFileUpload}
+                className="hidden"
+                accept="*/*"
               />
-              <Button
-                onClick={handleSendMessage}
-                disabled={!inputMessage.trim() || isLoading}
-                className="self-end"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
+              
+              {/* Help Text */}
+              <p className="text-xs text-muted-foreground">
+                Type your message, paste URLs to scan, or upload files for security analysis
+              </p>
             </div>
           </CardContent>
         </Card>
