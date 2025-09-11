@@ -259,8 +259,9 @@ const SecurityChatAssistant = () => {
           </CardHeader>
         </Card>
 
-        {/* Chat Messages */}
-        <Card className="h-[500px] flex flex-col">
+        {/* Chat Interface */}
+        <Card className="h-[600px] flex flex-col">
+          {/* Messages Area */}
           <CardContent className="flex-1 p-0">
             <ScrollArea className="h-full">
               <div className="space-y-1">
@@ -281,23 +282,19 @@ const SecurityChatAssistant = () => {
               </div>
             </ScrollArea>
           </CardContent>
-        </Card>
 
-        {/* Error Display */}
-        {error && (
-          <Card className="border-destructive">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 text-destructive">
+          {/* Error Display */}
+          {error && (
+            <div className="border-t border-destructive/20 bg-destructive/5 p-3">
+              <div className="flex items-center gap-2 text-destructive text-sm">
                 <AlertTriangle className="h-4 w-4" />
-                <span className="text-sm">{error}</span>
+                <span>{error}</span>
               </div>
-            </CardContent>
-          </Card>
-        )}
+            </div>
+          )}
 
-        {/* Enhanced Message Input with Integrated Tools */}
-        <Card>
-          <CardContent className="p-4">
+          {/* Input Area - Directly Attached */}
+          <div className="border-t border-border p-4 bg-background">
             <div className="space-y-3">
               {/* Attachment Preview */}
               {urlToScan && (
@@ -382,7 +379,7 @@ const SecurityChatAssistant = () => {
                 Type your message, paste URLs to scan, or upload files for security analysis
               </p>
             </div>
-          </CardContent>
+          </div>
         </Card>
       </div>
     </div>
