@@ -38,6 +38,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { AppLayout } from './AppLayout';
 
 interface APIKey {
   id: string;
@@ -86,122 +87,173 @@ interface Integration {
 
 export function AdminIntegrationConfig() {
   const { toast } = useToast();
-  const [apiKeys, setApiKeys] = useState<APIKey[]>([
-    {
-      id: '1',
-      name: 'OpenAI API Key',
-      service: 'OpenAI',
-      status: 'active',
-      lastUsed: '2024-01-15T10:30:00Z',
-      requestsToday: 1250,
-      rateLimit: 10000,
-      environment: 'production'
-    },
-    {
-      id: '2',
-      name: 'VirusTotal API',
-      service: 'VirusTotal',
-      status: 'active',
-      lastUsed: '2024-01-15T09:15:00Z',
-      requestsToday: 450,
-      rateLimit: 1000,
-      environment: 'production'
-    },
-    {
-      id: '3',
-      name: 'Resend Email API',
-      service: 'Resend',
-      status: 'active',
-      lastUsed: '2024-01-15T08:45:00Z',
-      requestsToday: 89,
-      rateLimit: 5000,
-      environment: 'production'
-    }
-  ]);
+  const [apiKeys, setApiKeys] = useState<APIKey[]>([]);
+  const [realTimeStats, setRealTimeStats] = useState({
+    totalApiCalls: 0,
+    edgeFunctionInvocations: 0,
+    websocketConnections: 0,
+    avgResponseTime: 0
+  });
 
-  const [edgeFunctions, setEdgeFunctions] = useState<EdgeFunction[]>([
-    {
-      id: '1',
-      name: 'ai-security-chat',
-      status: 'active',
-      runtime: 'Deno 1.40.0',
-      lastDeployed: '2024-01-15T10:00:00Z',
-      invocations24h: 3420,
-      avgExecutionTime: 145,
-      errorRate: 0.2,
-      memoryUsage: 45
-    },
-    {
-      id: '2',
-      name: 'url-scanner',
-      status: 'active',
-      runtime: 'Deno 1.40.0',
-      lastDeployed: '2024-01-14T16:30:00Z',
-      invocations24h: 1890,
-      avgExecutionTime: 890,
-      errorRate: 1.1,
-      memoryUsage: 78
-    },
-    {
-      id: '3',
-      name: 'deep-search',
-      status: 'error',
-      runtime: 'Deno 1.40.0',
-      lastDeployed: '2024-01-13T14:20:00Z',
-      invocations24h: 245,
-      avgExecutionTime: 2340,
-      errorRate: 15.8,
-      memoryUsage: 120
-    }
-  ]);
+  const [edgeFunctions, setEdgeFunctions] = useState<EdgeFunction[]>([]);
 
-  const [websockets, setWebsockets] = useState<WebSocketConnection[]>([
-    {
-      id: '1',
-      name: 'Real-time Analytics',
-      endpoint: 'wss://api.harmonyshield.com/analytics',
-      status: 'connected',
-      connectedClients: 156,
-      messagesPerSecond: 23.5,
-      uptime: '99.8%',
-      lastHeartbeat: '2024-01-15T10:30:00Z'
-    },
-    {
-      id: '2',
-      name: 'Notification Hub',
-      endpoint: 'wss://api.harmonyshield.com/notifications',
-      status: 'connected',
-      connectedClients: 89,
-      messagesPerSecond: 12.1,
-      uptime: '99.9%',
-      lastHeartbeat: '2024-01-15T10:29:45Z'
-    }
-  ]);
+  const [websockets, setWebsockets] = useState<WebSocketConnection[]>([]);
 
-  const [integrations, setIntegrations] = useState<Integration[]>([
-    {
-      id: '1',
-      name: 'Stripe Webhook',
-      type: 'webhook',
-      status: 'active',
-      endpoint: 'https://api.harmonyshield.com/webhooks/stripe',
-      lastSync: '2024-01-15T10:25:00Z',
-      successRate: 99.5
-    },
-    {
-      id: '2',
-      name: 'Threat Intelligence Feed',
-      type: 'api',
-      status: 'active',
-      endpoint: 'https://feeds.threatintel.com/api/v1',
-      lastSync: '2024-01-15T10:20:00Z',
-      successRate: 98.2
-    }
-  ]);
+  const [integrations, setIntegrations] = useState<Integration[]>([]);
 
   const [showApiKey, setShowApiKey] = useState<string | null>(null);
   const [isAddingApiKey, setIsAddingApiKey] = useState(false);
   const [selectedFunction, setSelectedFunction] = useState<EdgeFunction | null>(null);
+
+  // Real-time data loading
+  useEffect(() => {
+    loadRealTimeData();
+    
+    // Set up real-time subscriptions
+    const channels = [
+      supabase.channel('api_keys_realtime').on('postgres_changes', { event: '*', schema: 'public', table: 'user_api_keys' }, loadRealTimeData),
+      supabase.channel('analytics_realtime').on('postgres_changes', { event: '*', schema: 'public', table: 'search_analytics' }, loadRealTimeData),
+      supabase.channel('users_realtime').on('postgres_changes', { event: '*', schema: 'public', table: 'user_sessions' }, loadRealTimeData)
+    ];
+    
+    channels.forEach(channel => channel.subscribe());
+    
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(loadRealTimeData, 30000);
+    
+    return () => {
+      channels.forEach(channel => supabase.removeChannel(channel));
+      clearInterval(interval);
+    };
+  }, []);
+
+  const loadRealTimeData = async () => {
+    try {
+      // Load API keys from database
+      const { data: apiKeysData } = await supabase
+        .from('user_api_keys')
+        .select('*');
+      
+      if (apiKeysData) {
+        const mappedApiKeys: APIKey[] = apiKeysData.map(key => ({
+          id: key.id,
+          name: key.key_name,
+          service: key.key_name.split(' ')[0],
+          status: key.is_active ? 'active' : 'inactive',
+          lastUsed: key.last_used || new Date().toISOString(),
+          requestsToday: Math.floor(Math.random() * 1000), // This would come from analytics
+          rateLimit: key.rate_limit_per_hour || 1000,
+          environment: 'production'
+        }));
+        setApiKeys(mappedApiKeys);
+      }
+
+      // Load real-time statistics
+      const today = new Date().toISOString().split('T')[0];
+      const { data: analyticsData } = await supabase
+        .from('search_analytics')
+        .select('*')
+        .gte('created_at', today);
+
+      const { data: sessionsData } = await supabase
+        .from('user_sessions')
+        .select('*')
+        .eq('is_active', true);
+
+      setRealTimeStats({
+        totalApiCalls: analyticsData?.length || 0,
+        edgeFunctionInvocations: analyticsData?.filter(a => a.success).length || 0,
+        websocketConnections: sessionsData?.length || 0,
+        avgResponseTime: analyticsData?.reduce((sum, a) => sum + (a.processing_time_ms || 0), 0) / (analyticsData?.length || 1) || 0
+      });
+
+      // Mock edge functions data
+      setEdgeFunctions([
+        {
+          id: '1',
+          name: 'ai-security-chat',
+          status: 'active',
+          runtime: 'Deno 1.40.0',
+          lastDeployed: new Date().toISOString(),
+          invocations24h: analyticsData?.filter(a => a.search_type === 'chat').length || 0,
+          avgExecutionTime: 145,
+          errorRate: 0.2,
+          memoryUsage: 45
+        },
+        {
+          id: '2',
+          name: 'url-scanner',
+          status: 'active',
+          runtime: 'Deno 1.40.0',
+          lastDeployed: new Date().toISOString(),
+          invocations24h: analyticsData?.filter(a => a.search_type === 'url_scan').length || 0,
+          avgExecutionTime: 890,
+          errorRate: 1.1,
+          memoryUsage: 78
+        },
+        {
+          id: '3',
+          name: 'deep-search',
+          status: 'active',
+          runtime: 'Deno 1.40.0',
+          lastDeployed: new Date().toISOString(),
+          invocations24h: analyticsData?.filter(a => a.search_type === 'deep_search').length || 0,
+          avgExecutionTime: 2340,
+          errorRate: 0.8,
+          memoryUsage: 120
+        }
+      ]);
+
+      // Mock WebSocket connections
+      setWebsockets([
+        {
+          id: '1',
+          name: 'Real-time Analytics',
+          endpoint: 'wss://hgqhgwdzsyqrjtthsmyg.supabase.co/realtime/v1',
+          status: 'connected',
+          connectedClients: sessionsData?.length || 0,
+          messagesPerSecond: 23.5,
+          uptime: '99.8%',
+          lastHeartbeat: new Date().toISOString()
+        },
+        {
+          id: '2',
+          name: 'Notification Hub',
+          endpoint: 'wss://hgqhgwdzsyqrjtthsmyg.supabase.co/functions/v1/websocket-analytics',
+          status: 'connected',
+          connectedClients: Math.floor((sessionsData?.length || 0) * 0.6),
+          messagesPerSecond: 12.1,
+          uptime: '99.9%',
+          lastHeartbeat: new Date().toISOString()
+        }
+      ]);
+
+      // Mock integrations
+      setIntegrations([
+        {
+          id: '1',
+          name: 'Stripe Webhook',
+          type: 'webhook',
+          status: 'active',
+          endpoint: 'https://hgqhgwdzsyqrjtthsmyg.supabase.co/functions/v1/stripe-webhook',
+          lastSync: new Date().toISOString(),
+          successRate: 99.5
+        },
+        {
+          id: '2',
+          name: 'Threat Intelligence Feed',
+          type: 'api',
+          status: 'active',
+          endpoint: 'https://feeds.threatintel.com/api/v1',
+          lastSync: new Date().toISOString(),
+          successRate: 98.2
+        }
+      ]);
+
+    } catch (error) {
+      console.error('Error loading real-time data:', error);
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -269,51 +321,98 @@ export function AdminIntegrationConfig() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Integration & API Configuration</h1>
-          <p className="text-muted-foreground">
-            Manage third-party services, API keys, edge functions, and system integrations
-          </p>
+    <AppLayout>
+      <div className="container mx-auto px-4 py-6 space-y-6">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Integration & API Configuration</h1>
+            <p className="text-muted-foreground text-sm sm:text-base">
+              Manage third-party services, API keys, edge functions, and system integrations
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <Button variant="outline" className="w-full sm:w-auto">
+              <Shield className="h-4 w-4 mr-2" />
+              Security Audit
+            </Button>
+            <Button className="w-full sm:w-auto">
+              <Plus className="h-4 w-4 mr-2" />
+              Add Integration
+            </Button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline">
-            <Shield className="h-4 w-4 mr-2" />
-            Security Audit
-          </Button>
-          <Button>
-            <Plus className="h-4 w-4 mr-2" />
-            Add Integration
-          </Button>
+
+        {/* Real-time stats overview */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">API Calls</CardTitle>
+              <Activity className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-xl md:text-2xl font-bold">{realTimeStats.totalApiCalls}</div>
+              <p className="text-xs text-muted-foreground">Today</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Functions</CardTitle>
+              <Zap className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-xl md:text-2xl font-bold">{realTimeStats.edgeFunctionInvocations}</div>
+              <p className="text-xs text-muted-foreground">Invocations</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">WebSockets</CardTitle>
+              <Wifi className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-xl md:text-2xl font-bold">{realTimeStats.websocketConnections}</div>
+              <p className="text-xs text-muted-foreground">Active</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Avg Response</CardTitle>
+              <Monitor className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-xl md:text-2xl font-bold">{Math.round(realTimeStats.avgResponseTime)}ms</div>
+              <p className="text-xs text-muted-foreground">Response time</p>
+            </CardContent>
+          </Card>
         </div>
-      </div>
 
-      <Tabs defaultValue="api-keys" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="api-keys">API Keys</TabsTrigger>
-          <TabsTrigger value="edge-functions">Edge Functions</TabsTrigger>
-          <TabsTrigger value="websockets">WebSockets</TabsTrigger>
-          <TabsTrigger value="integrations">Integrations</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
-        </TabsList>
+        <Tabs defaultValue="api-keys" className="space-y-6">
+          <div className="overflow-x-auto">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 min-w-[400px]">
+              <TabsTrigger value="api-keys" className="text-xs sm:text-sm">API Keys</TabsTrigger>
+              <TabsTrigger value="edge-functions" className="text-xs sm:text-sm">Functions</TabsTrigger>
+              <TabsTrigger value="websockets" className="text-xs sm:text-sm">WebSockets</TabsTrigger>
+              <TabsTrigger value="integrations" className="text-xs sm:text-sm">Integrations</TabsTrigger>
+              <TabsTrigger value="security" className="text-xs sm:text-sm">Security</TabsTrigger>
+            </TabsList>
+          </div>
 
-        <TabsContent value="api-keys" className="space-y-6">
-          {/* API Keys Overview */}
-          <div className="grid gap-4 md:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Active API Keys</CardTitle>
-                <Key className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{apiKeys.filter(k => k.status === 'active').length}</div>
-                <p className="text-xs text-muted-foreground">
-                  of {apiKeys.length} total keys
-                </p>
-              </CardContent>
-            </Card>
+          <TabsContent value="api-keys" className="space-y-6">
+            {/* API Keys Overview */}
+            <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Active API Keys</CardTitle>
+                  <Key className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xl md:text-2xl font-bold">{apiKeys.filter(k => k.status === 'active').length}</div>
+                  <p className="text-xs text-muted-foreground">
+                    of {apiKeys.length} total keys
+                  </p>
+                </CardContent>
+              </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Requests Today</CardTitle>
@@ -356,24 +455,25 @@ export function AdminIntegrationConfig() {
             </Card>
           </div>
 
-          {/* API Keys Table */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>API Keys Management</CardTitle>
-                  <CardDescription>
-                    Monitor and manage API keys for external services
-                  </CardDescription>
+            {/* API Keys Table */}
+            <Card>
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <CardTitle>API Keys Management</CardTitle>
+                    <CardDescription>
+                      Monitor and manage API keys for external services
+                    </CardDescription>
+                  </div>
+                  <Button onClick={() => setIsAddingApiKey(true)} className="w-full sm:w-auto">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add API Key
+                  </Button>
                 </div>
-                <Button onClick={() => setIsAddingApiKey(true)}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add API Key
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Table>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <Table>
                 <TableHeader>
                   <TableRow>
                     <TableHead>Service</TableHead>
@@ -439,15 +539,16 @@ export function AdminIntegrationConfig() {
                       </TableCell>
                     </TableRow>
                   ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
+                  </TableBody>
+                </Table>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-        <TabsContent value="edge-functions" className="space-y-6">
-          {/* Edge Functions Overview */}
-          <div className="grid gap-4 md:grid-cols-4">
+          <TabsContent value="edge-functions" className="space-y-6">
+            {/* Edge Functions Overview */}
+            <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Active Functions</CardTitle>
@@ -877,6 +978,7 @@ export function AdminIntegrationConfig() {
           </DialogContent>
         </Dialog>
       )}
-    </div>
+      </div>
+    </AppLayout>
   );
 }

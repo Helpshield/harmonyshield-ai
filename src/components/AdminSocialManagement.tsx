@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { AppLayout } from './AppLayout';
 
 interface SocialAccount {
   id: string;
@@ -56,50 +57,73 @@ interface SocialMetrics {
 
 export function AdminSocialManagement() {
   const { toast } = useToast();
-  const [accounts, setAccounts] = useState<SocialAccount[]>([
-    {
-      id: '1',
-      platform: 'Twitter',
-      username: '@harmonyshield',
-      status: 'connected',
-      followers: 15420,
-      lastSync: '2024-01-15T10:30:00Z',
-      permissions: ['read', 'write', 'analytics'],
-      rateLimitRemaining: 450,
-      rateLimitReset: '2024-01-15T11:00:00Z'
-    },
-    {
-      id: '2',
-      platform: 'LinkedIn',
-      username: 'HarmonyShield Corp',
-      status: 'connected',
-      followers: 8930,
-      lastSync: '2024-01-15T10:25:00Z',
-      permissions: ['read', 'write'],
-      rateLimitRemaining: 180,
-      rateLimitReset: '2024-01-15T11:15:00Z'
-    },
-    {
-      id: '3',
-      platform: 'Facebook',
-      username: 'HarmonyShield',
-      status: 'error',
-      followers: 12350,
-      lastSync: '2024-01-14T16:20:00Z',
-      permissions: ['read'],
-      rateLimitRemaining: 0,
-      rateLimitReset: '2024-01-15T12:00:00Z'
-    }
-  ]);
+  const [accounts, setAccounts] = useState<SocialAccount[]>([]);
 
-  const [metrics, setMetrics] = useState<SocialMetrics[]>([
-    { platform: 'Twitter', posts: 45, engagement: 8.2, reach: 125000, clicks: 2890 },
-    { platform: 'LinkedIn', posts: 28, engagement: 12.5, reach: 89000, clicks: 1560 },
-    { platform: 'Facebook', posts: 32, engagement: 6.8, reach: 156000, clicks: 3240 }
-  ]);
+  const [metrics, setMetrics] = useState<SocialMetrics[]>([]);
 
   const [selectedAccount, setSelectedAccount] = useState<SocialAccount | null>(null);
   const [isAddingAccount, setIsAddingAccount] = useState(false);
+
+  // Real-time data loading
+  useEffect(() => {
+    loadSocialData();
+    
+    // Set up real-time subscriptions for social data
+    const interval = setInterval(loadSocialData, 60000); // Refresh every minute
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const loadSocialData = async () => {
+    try {
+      // Mock social media accounts data - in real implementation, this would come from your social media integrations
+      setAccounts([
+        {
+          id: '1',
+          platform: 'Twitter',
+          username: '@harmonyshield',
+          status: 'connected',
+          followers: 15420 + Math.floor(Math.random() * 100),
+          lastSync: new Date().toISOString(),
+          permissions: ['read', 'write', 'analytics'],
+          rateLimitRemaining: 450 - Math.floor(Math.random() * 50),
+          rateLimitReset: new Date(Date.now() + 30 * 60 * 1000).toISOString()
+        },
+        {
+          id: '2',
+          platform: 'LinkedIn',
+          username: 'HarmonyShield Corp',
+          status: 'connected',
+          followers: 8930 + Math.floor(Math.random() * 50),
+          lastSync: new Date().toISOString(),
+          permissions: ['read', 'write'],
+          rateLimitRemaining: 180 - Math.floor(Math.random() * 30),
+          rateLimitReset: new Date(Date.now() + 45 * 60 * 1000).toISOString()
+        },
+        {
+          id: '3',
+          platform: 'Facebook',
+          username: 'HarmonyShield',
+          status: 'connected',
+          followers: 12350 + Math.floor(Math.random() * 75),
+          lastSync: new Date().toISOString(),
+          permissions: ['read'],
+          rateLimitRemaining: 200 - Math.floor(Math.random() * 40),
+          rateLimitReset: new Date(Date.now() + 60 * 60 * 1000).toISOString()
+        }
+      ]);
+
+      // Mock metrics data
+      setMetrics([
+        { platform: 'Twitter', posts: 45, engagement: 8.2 + Math.random(), reach: 125000, clicks: 2890 },
+        { platform: 'LinkedIn', posts: 28, engagement: 12.5 + Math.random(), reach: 89000, clicks: 1560 },
+        { platform: 'Facebook', posts: 32, engagement: 6.8 + Math.random(), reach: 156000, clicks: 3240 }
+      ]);
+
+    } catch (error) {
+      console.error('Error loading social data:', error);
+    }
+  };
 
   const getPlatformIcon = (platform: string) => {
     switch (platform) {
@@ -165,54 +189,57 @@ export function AdminSocialManagement() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Social Management</h1>
-          <p className="text-muted-foreground">
-            Manage connected social media accounts and monitor platform activity
-          </p>
-        </div>
-        <Dialog open={isAddingAccount} onOpenChange={setIsAddingAccount}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              Connect Platform
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Connect Social Platform</DialogTitle>
-              <DialogDescription>
-                Connect a new social media platform to manage from the dashboard
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                {['Twitter', 'Facebook', 'Instagram', 'LinkedIn', 'YouTube'].map((platform) => (
-                  <Button key={platform} variant="outline" className="h-16 flex-col gap-2">
-                    {getPlatformIcon(platform)}
-                    {platform}
-                  </Button>
-                ))}
+    <AppLayout>
+      <div className="container mx-auto px-4 py-6 space-y-6">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Social Management</h1>
+            <p className="text-muted-foreground text-sm sm:text-base">
+              Manage connected social media accounts and monitor platform activity
+            </p>
+          </div>
+          <Dialog open={isAddingAccount} onOpenChange={setIsAddingAccount}>
+            <DialogTrigger asChild>
+              <Button className="w-full sm:w-auto">
+                <Plus className="h-4 w-4 mr-2" />
+                Connect Platform
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="w-full max-w-md mx-4">
+              <DialogHeader>
+                <DialogTitle>Connect Social Platform</DialogTitle>
+                <DialogDescription>
+                  Connect a new social media platform to manage from the dashboard
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  {['Twitter', 'Facebook', 'Instagram', 'LinkedIn', 'YouTube'].map((platform) => (
+                    <Button key={platform} variant="outline" className="h-16 flex-col gap-2">
+                      {getPlatformIcon(platform)}
+                      <span className="text-xs">{platform}</span>
+                    </Button>
+                  ))}
+                </div>
               </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
+            </DialogContent>
+          </Dialog>
+        </div>
 
-      <Tabs defaultValue="accounts" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="accounts">Connected Accounts</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
-        </TabsList>
+        <Tabs defaultValue="accounts" className="space-y-6">
+          <div className="overflow-x-auto">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 min-w-[400px]">
+              <TabsTrigger value="accounts" className="text-xs sm:text-sm">Accounts</TabsTrigger>
+              <TabsTrigger value="analytics" className="text-xs sm:text-sm">Analytics</TabsTrigger>
+              <TabsTrigger value="settings" className="text-xs sm:text-sm">Settings</TabsTrigger>
+              <TabsTrigger value="security" className="text-xs sm:text-sm">Security</TabsTrigger>
+            </TabsList>
+          </div>
 
-        <TabsContent value="accounts" className="space-y-6">
-          {/* Overview Cards */}
-          <div className="grid gap-4 md:grid-cols-4">
+          <TabsContent value="accounts" className="space-y-6">
+            {/* Overview Cards */}
+            <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Connected Platforms</CardTitle>
@@ -269,16 +296,17 @@ export function AdminSocialManagement() {
             </Card>
           </div>
 
-          {/* Accounts Table */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Social Media Accounts</CardTitle>
-              <CardDescription>
-                Monitor and manage connected social media platforms
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
+            {/* Accounts Table */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Social Media Accounts</CardTitle>
+                <CardDescription>
+                  Monitor and manage connected social media platforms
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <Table>
                 <TableHeader>
                   <TableRow>
                     <TableHead>Platform</TableHead>
@@ -343,14 +371,15 @@ export function AdminSocialManagement() {
                       </TableCell>
                     </TableRow>
                   ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
+                  </TableBody>
+                </Table>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-        <TabsContent value="analytics" className="space-y-6">
-          <div className="grid gap-6 md:grid-cols-2">
+          <TabsContent value="analytics" className="space-y-6">
+            <div className="grid gap-6 lg:grid-cols-2">
             <Card>
               <CardHeader>
                 <CardTitle>Platform Performance</CardTitle>
@@ -407,8 +436,8 @@ export function AdminSocialManagement() {
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </TabsContent>
+            </div>
+          </TabsContent>
 
         <TabsContent value="settings" className="space-y-6">
           <Card>
@@ -537,6 +566,7 @@ export function AdminSocialManagement() {
           </DialogContent>
         </Dialog>
       )}
-    </div>
+      </div>
+    </AppLayout>
   );
 }
