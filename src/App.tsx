@@ -36,6 +36,8 @@ import AdminSecurityCenter from "./components/AdminSecurityCenter";
 import { AdminSocialManagement } from "./components/AdminSocialManagement";
 import { AdminIntegrationConfig } from "./components/AdminIntegrationConfig";
 import SecurityChatAssistant from "./components/SecurityChatAssistant";
+import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
+import TermsOfServicePage from "./components/TermsOfServicePage";
 
 // Lazy load heavy components with proper error boundaries
 const LazyAdminDashboard = React.lazy(() => import("./components/AdminDashboard"));
@@ -100,6 +102,8 @@ const App = () => (
           <Route path="/links" element={<AILinksPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/track/:shortCode" element={<TrackingRedirectPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

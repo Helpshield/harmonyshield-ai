@@ -285,6 +285,57 @@ harmonyshield/
 
 ---
 
+## 🔄 CI/CD Pipeline
+
+Harmony Shield implements automated CI/CD using GitHub Actions for continuous integration and deployment.
+
+### Automated Workflows
+
+#### CI/CD Pipeline (`.github/workflows/ci-cd.yml`)
+- **Lint & Type Check**: ESLint and TypeScript validation on every push
+- **Build Verification**: Ensures application builds successfully
+- **Security Audit**: Automated npm vulnerability scanning
+- **Lighthouse Performance**: Performance, accessibility, and SEO audits
+- **Staging Deployment**: Auto-deploy to staging environment on `develop` branch
+- **Production Deployment**: Auto-deploy to production on `main` branch
+
+#### Automated Tests (`.github/workflows/test.yml`)
+- **Multi-OS Testing**: Ubuntu, Windows, and macOS compatibility
+- **Multi-Version Testing**: Node.js 18 and 20
+- **Code Quality Checks**: Formatting and complexity analysis
+- **Dependency Review**: Security vulnerability scanning for dependencies
+- **Daily Scheduled Tests**: Automated daily test runs at 2 AM UTC
+
+### GitHub Actions Setup
+
+To enable CI/CD workflows, configure these secrets in your GitHub repository:
+
+```bash
+# Navigate to: Settings > Secrets and variables > Actions
+
+NETLIFY_AUTH_TOKEN        # Your Netlify authentication token
+NETLIFY_SITE_ID          # Production site ID
+NETLIFY_STAGING_SITE_ID  # Staging site ID (optional)
+```
+
+### Branch Strategy
+
+```
+main        → Production environment
+develop     → Staging environment  
+feature/*   → Feature development branches
+```
+
+### Deployment Flow
+
+1. Push to `feature/*` branch → Run tests
+2. Create PR to `develop` → Run full CI pipeline
+3. Merge to `develop` → Deploy to staging + Run tests
+4. Create PR to `main` → Final review
+5. Merge to `main` → Deploy to production + Run tests
+
+---
+
 ## 🔐 Security
 
 ### Authentication

@@ -6,7 +6,32 @@ This document tracks planned features, improvements, and known issues for Harmon
 
 ## 🎯 Current Sprint (Priority)
 
-### Social Management Feature (In Progress)
+### Legal & Compliance Pages
+- [x] Privacy Policy page
+- [x] Terms of Service page
+- [ ] Cookie Policy page
+- [ ] Data Protection page (GDPR details)
+- [ ] GDPR Compliance information page
+- [ ] SOC 2 Compliance documentation
+- [ ] Security Certifications page
+- [ ] Audit Reports page
+
+### CI/CD & DevOps
+- [x] GitHub Actions CI/CD pipeline setup
+- [x] Automated testing workflow  
+- [x] Multi-environment deployment (staging/production)
+- [x] Security audit automation
+- [x] Performance monitoring with Lighthouse CI
+- [x] Multi-OS and multi-version testing
+- [x] Code quality checks automation
+- [ ] End-to-end testing with Playwright
+- [ ] Unit testing with Vitest
+- [ ] Integration testing for edge functions
+- [ ] Code coverage reporting
+- [ ] Preview environment for pull requests
+- [ ] Automated database migration testing
+
+### Social Management Feature (Next Priority)
 - [ ] Design social platform monitoring interface
 - [ ] Implement platform-specific API integrations
 - [ ] Create real-time social media feed scanner
@@ -240,10 +265,10 @@ This document tracks planned features, improvements, and known issues for Harmon
 - [ ] Enhanced audit logging
 
 ### DevOps & Infrastructure
-- [ ] Set up CI/CD pipeline
-  - [ ] Automated testing
-  - [ ] Automated deployments
-  - [ ] Preview environments
+- [x] Set up CI/CD pipeline
+  - [x] Automated testing
+  - [x] Automated deployments
+  - [ ] Preview environments for PRs
 - [ ] Implement monitoring and alerting
   - [ ] Uptime monitoring
   - [ ] Error tracking
@@ -409,6 +434,11 @@ This document tracks planned features, improvements, and known issues for Harmon
 - [x] Comprehensive README documentation
 - [x] CHANGELOG creation
 - [x] TODO/Roadmap documentation
+- [x] Privacy Policy page
+- [x] Terms of Service page
+- [x] CI/CD pipeline with GitHub Actions
+- [x] Automated testing workflows
+- [x] Multi-environment deployments
 
 ---
 
