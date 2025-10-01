@@ -12,7 +12,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-Backend-green)](https://supabase.com/)
 
-[Live Demo](https://harmonyshield.lovable.app) • [Documentation](#features) • [Report Bug](https://github.com/harmonyshield/issues)
+[Live Demo](https://harmony-shield.netlify.app) • [Documentation](#features) • [Report Bug](https://github.com/harmonyshield-ai/issues)
 
 </div>
 
@@ -377,9 +377,9 @@ feature/*   → Feature development branches
 
 ### Deploy with Lovable
 
-1. Open [Lovable](https://lovable.dev/projects/fbb59712-aaa7-4335-b2cf-1706b3b1682c)
+1. Open [Lovable](https://lovable.dev/projects/0e2a5719-a8f6-4049-b54b-fbb368fa663c)
 2. Click on **Share → Publish**
-3. Your app will be live at `harmonyshield.lovable.app`
+3. Your app will be live at `harmonyshield-ai.lovable.app`
 
 ### Custom Domain
 
@@ -471,6 +471,6 @@ For support, please:
 
 **Built with ❤️ by the HarmonyShield Team**
 
-[Website](https://harmonyshield.lovable.app) • [GitHub](https://github.com/harmonyshield) • [Documentation](https://docs.harmonyshield.lovable.app)
+[Website](https://harmonyshield.online) • [GitHub](https://github.com/harmonyshield-ai) • [Documentation](https://docs.harmonyshield.lovable.app)
 
 </div>
