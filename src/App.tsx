@@ -38,6 +38,13 @@ import { AdminIntegrationConfig } from "./components/AdminIntegrationConfig";
 import SecurityChatAssistant from "./components/SecurityChatAssistant";
 import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
 import TermsOfServicePage from "./components/TermsOfServicePage";
+import DataProtectionPage from "./components/DataProtectionPage";
+import CookiePolicyPage from "./components/CookiePolicyPage";
+import FAQPage from "./components/FAQPage";
+import HelpCenterPage from "./components/HelpCenterPage";
+import ContactSupportPage from "./components/ContactSupportPage";
+import CompliancePage from "./components/CompliancePage";
+import NewsletterPage from "./components/NewsletterPage";
 
 // Lazy load heavy components with proper error boundaries
 const LazyAdminDashboard = React.lazy(() => import("./components/AdminDashboard"));
@@ -104,6 +111,16 @@ const App = () => (
           <Route path="/track/:shortCode" element={<TrackingRedirectPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+          <Route path="/data-protection" element={<DataProtectionPage />} />
+          <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/help-center" element={<HelpCenterPage />} />
+          <Route path="/contact-support" element={<ContactSupportPage />} />
+          <Route path="/soc-compliance" element={<CompliancePage />} />
+          <Route path="/gdpr" element={<CompliancePage />} />
+          <Route path="/security-certifications" element={<CompliancePage />} />
+          <Route path="/audit-reports" element={<CompliancePage />} />
+          <Route path="/newsletter" element={<NewsletterPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
