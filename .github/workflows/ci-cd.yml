@@ -131,7 +131,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment:
       name: production
-      url: https://harmonyshield.app
+      url: https://harmonyshield.online
     
     steps:
       - name: Checkout code
@@ -156,7 +156,7 @@ jobs:
         if: success()
         run: |
           echo "✅ Production deployment successful!"
-          echo "Site URL: https://harmonyshield.app"
+          echo "Site URL: https://harmonyshield.online"
 
   # Performance Check
   lighthouse:
