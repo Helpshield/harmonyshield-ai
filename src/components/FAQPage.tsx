@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { AppLayout } from "./AppLayout";
+import { PublicLayout } from "./PublicLayout";
 
 const FAQPage = () => {
   const faqs = [
@@ -136,7 +136,7 @@ const FAQPage = () => {
   ];
 
   return (
-    <AppLayout>
+    <PublicLayout>
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 max-w-4xl">
           <div className="mb-8">
@@ -183,7 +183,7 @@ const FAQPage = () => {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </PublicLayout>
   );
 };
 

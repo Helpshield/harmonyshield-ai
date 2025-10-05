@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AppLayout } from "./AppLayout";
+import { PublicLayout } from "./PublicLayout";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -25,7 +25,7 @@ const NewsletterPage = () => {
   };
 
   return (
-    <AppLayout>
+    <PublicLayout>
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 max-w-4xl">
           <div className="mb-8">
@@ -201,7 +201,7 @@ const NewsletterPage = () => {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </PublicLayout>
   );
 };
 

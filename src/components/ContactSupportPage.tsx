@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AppLayout } from "./AppLayout";
+import { PublicLayout } from "./PublicLayout";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -26,7 +26,7 @@ const ContactSupportPage = () => {
   };
 
   return (
-    <AppLayout>
+    <PublicLayout>
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 max-w-6xl">
           <div className="mb-8">
@@ -218,7 +218,7 @@ const ContactSupportPage = () => {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </PublicLayout>
   );
 };
 

@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { AppLayout } from "./AppLayout";
+import { PublicLayout } from "./PublicLayout";
 
 const CompliancePage = () => {
   return (
-    <AppLayout>
+    <PublicLayout>
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 max-w-6xl">
           <div className="mb-8">
@@ -194,7 +194,7 @@ const CompliancePage = () => {
           </Card>
         </div>
       </div>
-    </AppLayout>
+    </PublicLayout>
   );
 };
 

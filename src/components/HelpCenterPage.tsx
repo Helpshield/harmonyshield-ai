@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AppLayout } from "./AppLayout";
+import { PublicLayout } from "./PublicLayout";
 
 const HelpCenterPage = () => {
   const helpCategories = [
@@ -54,7 +54,7 @@ const HelpCenterPage = () => {
   ];
 
   return (
-    <AppLayout>
+    <PublicLayout>
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 max-w-6xl">
           <div className="mb-12 text-center">
@@ -153,7 +153,7 @@ const HelpCenterPage = () => {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </PublicLayout>
   );
 };
 

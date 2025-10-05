@@ -1,11 +1,11 @@
+import { PublicLayout } from './PublicLayout';
 import { Shield, Lock, Database, Eye, FileText, UserCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { AppLayout } from "./AppLayout";
 
 const DataProtectionPage = () => {
   return (
-    <AppLayout>
+    <PublicLayout>
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 max-w-4xl">
           <div className="mb-8">
@@ -107,7 +107,7 @@ const DataProtectionPage = () => {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </PublicLayout>
   );
 };
 
