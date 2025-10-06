@@ -1,5 +1,5 @@
-// ScamShield Service Worker - Enhanced for Performance and Offline Support
-const CACHE_NAME = 'harmony-shield-v1';
+// Harmony Shield Service Worker - Enhanced for Performance and Offline Support
+const CACHE_NAME = 'harmony-shield-v2.0';
 const OFFLINE_URL = '/offline.html';
 
 // Assets to cache for offline functionality

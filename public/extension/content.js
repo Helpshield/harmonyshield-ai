@@ -1,5 +1,5 @@
-// ScamShield Content Script
-class ScamShieldContent {
+// Harmony Shield Content Script
+class HarmonyShieldContent {
   constructor() {
     this.warningOverlay = null;
     this.scanResult = null;
@@ -62,14 +62,14 @@ class ScamShieldContent {
           WARNING: ${result.riskLevel.toUpperCase()} RISK DETECTED
         </h1>
         <p style="color: #374151; margin-bottom: 1rem; line-height: 1.5;">
-          This website has been flagged by ScamShield as potentially dangerous.
+          This website has been flagged by Harmony Shield as potentially dangerous.
         </p>
         <div style="background: #fef2f2; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
           <p style="color: #991b1b; font-weight: 600; margin-bottom: 0.5rem;">Detected Threats:</p>
           <p style="color: #7f1d1d;">${result.threats.join(', ')}</p>
         </div>
         <div style="display: flex; gap: 1rem; justify-content: center;">
-          <button id="scamshield-leave" style="
+          <button id="harmonyshield-leave" style="
             background: #dc2626;
             color: white;
             padding: 0.75rem 1.5rem;
@@ -78,7 +78,7 @@ class ScamShieldContent {
             font-weight: 600;
             cursor: pointer;
           ">Leave Safely</button>
-          <button id="scamshield-continue" style="
+          <button id="harmonyshield-continue" style="
             background: #6b7280;
             color: white;
             padding: 0.75rem 1.5rem;
@@ -95,11 +95,11 @@ class ScamShieldContent {
     this.warningOverlay = overlay;
 
     // Add event listeners
-    overlay.querySelector('#scamshield-leave').addEventListener('click', () => {
+    overlay.querySelector('#harmonyshield-leave').addEventListener('click', () => {
       window.history.back();
     });
 
-    overlay.querySelector('#scamshield-continue').addEventListener('click', () => {
+    overlay.querySelector('#harmonyshield-continue').addEventListener('click', () => {
       this.removeWarningOverlay();
     });
   }
@@ -150,7 +150,7 @@ class ScamShieldContent {
       position: relative;
     `;
 
-    link.title = `⚠️ ScamShield Warning: This link has been flagged as ${result.riskLevel} risk`;
+    link.title = `⚠️ Harmony Shield Warning: This link has been flagged as ${result.riskLevel} risk`;
     
     // Add warning icon
     const warningIcon = document.createElement('span');
@@ -180,7 +180,7 @@ class ScamShieldContent {
 
 // Initialize content script
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => new ScamShieldContent());
+  document.addEventListener('DOMContentLoaded', () => new HarmonyShieldContent());
 } else {
-  new ScamShieldContent();
+  new HarmonyShieldContent();
 }

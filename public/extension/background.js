@@ -1,4 +1,4 @@
-// ScamShield Browser Extension Background Script
+// Harmony Shield Browser Extension Background Script
 const SUPABASE_URL = "https://hgqhgwdzsyqrjtthsmyg.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhncWhnd2R6c3lxcmp0dGhzbXlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3MjU1OTAsImV4cCI6MjA3MTMwMTU5MH0.VBEXTbT1mUcKmn8EB0RxvJLTfQU2p4pe13vWkL63W6M";
 
@@ -125,7 +125,7 @@ class URLScanner {
     await chrome.notifications.create({
       type: 'basic',
       iconUrl: 'icons/icon48.png',
-      title: `🛡️ ScamShield Alert: ${riskLevel.toUpperCase()} Risk Detected`,
+      title: `🛡️ Harmony Shield Alert: ${riskLevel.toUpperCase()} Risk Detected`,
       message: `${domain} has been flagged as potentially dangerous. Threats: ${threats.join(', ')}`,
       priority: riskLevel === 'critical' ? 2 : 1,
       requireInteraction: riskLevel === 'critical'
@@ -180,7 +180,7 @@ new URLScanner();
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === 'install') {
     chrome.tabs.create({
-      url: 'https://hgqhgwdzsyqrjtthsmyg.lovable.app'
+      url: 'https://harmony-shield.netlify.app'
     });
   }
 });

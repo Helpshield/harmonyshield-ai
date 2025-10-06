@@ -1,4 +1,4 @@
-// ScamShield Extension Popup
+// Harmony Shield Extension Popup
 class PopupManager {
   constructor() {
     this.currentTab = null;
@@ -141,13 +141,13 @@ class PopupManager {
 
     document.getElementById('report-btn').addEventListener('click', () => {
       chrome.tabs.create({
-        url: `https://hgqhgwdzsyqrjtthsmyg.lovable.app/reports?url=${encodeURIComponent(this.currentTab.url)}`
+        url: `https://harmony-shield.netlify.app/reports?url=${encodeURIComponent(this.currentTab.url)}`
       });
     });
 
     document.getElementById('dashboard-btn').addEventListener('click', () => {
       chrome.tabs.create({
-        url: 'https://hgqhgwdzsyqrjtthsmyg.lovable.app/dashboard'
+        url: 'https://harmony-shield.netlify.app/dashboard'
       });
     });
   }
