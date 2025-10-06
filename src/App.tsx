@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { queryClient } from "./lib/queryClient";
 import ServiceWorkerManager from "./components/ServiceWorkerManager";
 import { AdminLoadingFallback } from "./components/lazy/LazyAdminComponents";
+import ErrorBoundary from "./components/ErrorBoundary";
+import LoadingFallback from "./components/LoadingFallback";
 import Index from "./pages/Index";
 import AuthForm from "./components/AuthForm";
 import UserDashboard from "./components/UserDashboard";
@@ -51,18 +53,30 @@ const LazyAdminDashboard = React.lazy(() => import("./components/AdminDashboard"
 const LazyAdminBotManagement = React.lazy(() => import("./components/AdminBotManagement"));
 const LazyAdminUsersManagement = React.lazy(() => import("./components/AdminUsersManagement"));
 const LazyAdminReportsManagement = React.lazy(() => import("./components/AdminReportsManagement"));
+const LazyUserDashboard = React.lazy(() => import("./components/UserDashboard"));
+const LazyDeepSearchPage = React.lazy(() => import("./components/DeepSearchPage"));
+const LazyRecoveryPage = React.lazy(() => import("./components/RecoveryPage"));
+const LazySecurityChatAssistant = React.lazy(() => import("./components/SecurityChatAssistant"));
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ServiceWorkerManager>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<AuthForm />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ServiceWorkerManager>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter future={{
+            v7_startTransition: true,
+            v7_relativeSplatPath: true
+          }}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<AuthForm />} />
+            <Route path="/dashboard" element={
+              <Suspense fallback={<LoadingFallback type="page" message="Loading dashboard..." />}>
+                <LazyUserDashboard />
+              </Suspense>
+            } />
           <Route path="/alerts" element={<SecurityAlertsPage />} />
           <Route path="/admin" element={
             <Suspense fallback={<AdminLoadingFallback />}>
@@ -99,13 +113,25 @@ const App = () => (
         <Route path="/admin/social" element={<AdminSocialManagement />} />
         <Route path="/admin/api-config" element={<AdminIntegrationConfig />} />
           <Route path="/admin/manual" element={<ManualPage />} />
-          <Route path="/chat-assistant" element={<SecurityChatAssistant />} />
+          <Route path="/chat-assistant" element={
+            <Suspense fallback={<LoadingFallback message="Loading AI Assistant..." />}>
+              <LazySecurityChatAssistant />
+            </Suspense>
+          } />
           <Route path="/bots" element={<BotPackagesPage />} />
           <Route path="/reports" element={<UserReportsPage />} />
-          <Route path="/recovery" element={<RecoveryPage />} />
+          <Route path="/recovery" element={
+            <Suspense fallback={<LoadingFallback message="Loading recovery service..." />}>
+              <LazyRecoveryPage />
+            </Suspense>
+          } />
           <Route path="/smartfeeds" element={<SmartFeedsPage />} />
           <Route path="/scanner" element={<ScannerPage />} />
-          <Route path="/deepsearch" element={<DeepSearchPage />} />
+          <Route path="/deepsearch" element={
+            <Suspense fallback={<LoadingFallback message="Starting deep search..." />}>
+              <LazyDeepSearchPage />
+            </Suspense>
+          } />
           <Route path="/links" element={<AILinksPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/track/:shortCode" element={<TrackingRedirectPage />} />
@@ -123,11 +149,12 @@ const App = () => (
           <Route path="/newsletter" element={<NewsletterPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-    </ServiceWorkerManager>
-  </QueryClientProvider>
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+      </ServiceWorkerManager>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;

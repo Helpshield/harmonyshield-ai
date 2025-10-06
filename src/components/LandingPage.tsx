@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useSEOMeta } from '@/utils/seoHelpers';
 import { 
   Shield, 
   AlertTriangle, 
@@ -36,6 +37,14 @@ import aiDetectionImage from '@/assets/ai-detection.jpg';
 const LandingPage = () => {
   const { isMobile, isTablet, getColumnsForBreakpoint } = useResponsive();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  // SEO optimization
+  useSEOMeta({
+    title: 'Digital Shield Against Social Media Fraud',
+    description: 'Advanced AI-powered platform that monitors, detects, and protects you from fraudulent activities across all social media platforms in real-time.',
+    keywords: 'social media fraud protection, AI scam detection, cybersecurity, fraud prevention, online safety',
+    canonicalUrl: window.location.origin
+  });
 
   const featureColumns = getColumnsForBreakpoint({
     xs: 1,
