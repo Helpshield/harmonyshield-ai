@@ -48,7 +48,7 @@ const ContactSupportPage = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-2">support@harmonyshield.com</p>
+                <p className="text-muted-foreground mb-2">support@harmonyshield.online</p>
                 <p className="text-sm text-muted-foreground">Response within 24 hours</p>
               </CardContent>
             </Card>
