@@ -1,0 +1,130 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "features": "Características",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "dashboard": "Panel",
+    "scanner": "Escáner",
+    "deepSearch": "Búsqueda Profunda",
+    "recovery": "Recuperación",
+    "reports": "Informes",
+    "aiLinks": "Enlaces IA",
+    "news": "Noticias",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "landing": {
+    "hero": {
+      "title": "Tu Guardián Digital Contra Amenazas en Línea",
+      "subtitle": "Protégete de estafas, fraudes y amenazas digitales con herramientas de seguridad potenciadas por IA",
+      "cta": "Comenzar Gratis",
+      "learnMore": "Saber Más"
+    },
+    "features": {
+      "title": "Características de Seguridad Avanzadas",
+      "aiScanner": {
+        "title": "Escáner con IA",
+        "description": "Detecta amenazas en archivos y URLs usando tecnología IA avanzada"
+      },
+      "deepSearch": {
+        "title": "Búsqueda Profunda",
+        "description": "Verificaciones exhaustivas y análisis de huella digital"
+      },
+      "recovery": {
+        "title": "Recuperación de Fondos",
+        "description": "Asistencia experta en recuperar fondos de fraudes y estafas"
+      },
+      "realtime": {
+        "title": "Protección en Tiempo Real",
+        "description": "Monitoreo 24/7 y alertas instantáneas de amenazas"
+      }
+    },
+    "stats": {
+      "scamsBlocked": "Estafas Bloqueadas",
+      "usersProtected": "Usuarios Protegidos",
+      "fundsRecovered": "Fondos Recuperados"
+    }
+  },
+  "auth": {
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes cuenta?",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "signInWithGoogle": "Iniciar sesión con Google",
+    "or": "O",
+    "welcome": "Bienvenido de nuevo",
+    "createAccount": "Crea tu cuenta"
+  },
+  "dashboard": {
+    "welcome": "Bienvenido de nuevo",
+    "overview": "Resumen",
+    "recentActivity": "Actividad Reciente",
+    "securityScore": "Puntuación de Seguridad",
+    "threatsBlocked": "Amenazas Bloqueadas",
+    "scansCompleted": "Escaneos Completados",
+    "activeAlerts": "Alertas Activas"
+  },
+  "scanner": {
+    "title": "Escáner de Seguridad",
+    "scanFile": "Escanear Archivo",
+    "scanUrl": "Escanear URL",
+    "dragDrop": "Arrastra y suelta el archivo aquí o haz clic para buscar",
+    "enterUrl": "Ingresa URL para escanear",
+    "scanning": "Escaneando",
+    "analyzing": "Analizando",
+    "results": "Resultados",
+    "safe": "Seguro",
+    "threat": "Amenaza Detectada",
+    "noThreats": "No se encontraron amenazas",
+    "viewDetails": "Ver Detalles"
+  },
+  "recovery": {
+    "title": "Recuperación de Fondos",
+    "crypto": "Recuperación Cripto",
+    "cards": "Tarjetas y Banca",
+    "cash": "Recuperación de Efectivo",
+    "description": "Envía tu caso para asistencia profesional de recuperación",
+    "submit": "Enviar Solicitud",
+    "status": "Estado",
+    "pending": "Pendiente",
+    "inProgress": "En Progreso",
+    "completed": "Completado"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "download": "Descargar",
+    "upload": "Subir",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "clear": "Limpiar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "continue": "Continuar",
+    "confirm": "Confirmar"
+  },
+  "errors": {
+    "generic": "Algo salió mal",
+    "network": "Error de red. Por favor verifica tu conexión",
+    "unauthorized": "Acceso no autorizado",
+    "notFound": "Recurso no encontrado",
+    "validation": "Por favor verifica tu entrada"
+  }
+}

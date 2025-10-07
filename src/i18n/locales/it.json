@@ -1,0 +1,130 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Funzionalità",
+    "about": "Chi Siamo",
+    "contact": "Contatto",
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "dashboard": "Dashboard",
+    "scanner": "Scanner",
+    "deepSearch": "Ricerca Profonda",
+    "recovery": "Recupero",
+    "reports": "Rapporti",
+    "aiLinks": "Link IA",
+    "news": "Notizie",
+    "profile": "Profilo",
+    "settings": "Impostazioni",
+    "logout": "Disconnetti"
+  },
+  "landing": {
+    "hero": {
+      "title": "Il Tuo Guardiano Digitale Contro le Minacce Online",
+      "subtitle": "Proteggiti da truffe, frodi e minacce digitali con strumenti di sicurezza basati sull'IA",
+      "cta": "Inizia Gratis",
+      "learnMore": "Scopri di Più"
+    },
+    "features": {
+      "title": "Funzionalità di Sicurezza Avanzate",
+      "aiScanner": {
+        "title": "Scanner IA",
+        "description": "Rileva minacce in file e URL utilizzando tecnologia IA avanzata"
+      },
+      "deepSearch": {
+        "title": "Ricerca Profonda",
+        "description": "Controlli approfonditi e analisi dell'impronta digitale"
+      },
+      "recovery": {
+        "title": "Recupero Fondi",
+        "description": "Assistenza esperta nel recupero di fondi da frodi e truffe"
+      },
+      "realtime": {
+        "title": "Protezione in Tempo Reale",
+        "description": "Monitoraggio 24/7 e avvisi istantanei di minacce"
+      }
+    },
+    "stats": {
+      "scamsBlocked": "Truffe Bloccate",
+      "usersProtected": "Utenti Protetti",
+      "fundsRecovered": "Fondi Recuperati"
+    }
+  },
+  "auth": {
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Conferma Password",
+    "forgotPassword": "Password dimenticata?",
+    "noAccount": "Non hai un account?",
+    "hasAccount": "Hai già un account?",
+    "signInWithGoogle": "Accedi con Google",
+    "or": "OPPURE",
+    "welcome": "Bentornato",
+    "createAccount": "Crea il tuo account"
+  },
+  "dashboard": {
+    "welcome": "Bentornato",
+    "overview": "Panoramica",
+    "recentActivity": "Attività Recente",
+    "securityScore": "Punteggio di Sicurezza",
+    "threatsBlocked": "Minacce Bloccate",
+    "scansCompleted": "Scansioni Completate",
+    "activeAlerts": "Avvisi Attivi"
+  },
+  "scanner": {
+    "title": "Scanner di Sicurezza",
+    "scanFile": "Scansiona File",
+    "scanUrl": "Scansiona URL",
+    "dragDrop": "Trascina e rilascia il file qui o clicca per sfogliare",
+    "enterUrl": "Inserisci URL da scansionare",
+    "scanning": "Scansione",
+    "analyzing": "Analizzando",
+    "results": "Risultati",
+    "safe": "Sicuro",
+    "threat": "Minaccia Rilevata",
+    "noThreats": "Nessuna minaccia trovata",
+    "viewDetails": "Visualizza Dettagli"
+  },
+  "recovery": {
+    "title": "Recupero Fondi",
+    "crypto": "Recupero Crypto",
+    "cards": "Carte e Banking",
+    "cash": "Recupero Contanti",
+    "description": "Invia il tuo caso per assistenza professionale",
+    "submit": "Invia Richiesta",
+    "status": "Stato",
+    "pending": "In Attesa",
+    "inProgress": "In Corso",
+    "completed": "Completato"
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "success": "Successo",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "view": "Visualizza",
+    "download": "Scarica",
+    "upload": "Carica",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "clear": "Cancella",
+    "close": "Chiudi",
+    "back": "Indietro",
+    "next": "Avanti",
+    "previous": "Precedente",
+    "submit": "Invia",
+    "continue": "Continua",
+    "confirm": "Conferma"
+  },
+  "errors": {
+    "generic": "Qualcosa è andato storto",
+    "network": "Errore di rete. Controlla la tua connessione",
+    "unauthorized": "Accesso non autorizzato",
+    "notFound": "Risorsa non trovata",
+    "validation": "Controlla il tuo input"
+  }
+}

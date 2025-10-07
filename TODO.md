@@ -86,10 +86,13 @@ This document tracks planned features, improvements, and known issues for Harmon
   - [ ] Notification channels
   - [ ] Quiet hours
   - [ ] Priority levels
-- [ ] Multi-language support
-  - [ ] Spanish (ES)
-  - [ ] French (FR)
-  - [ ] German (DE)
+- [x] Multi-language support (react-i18next, no API required)
+  - [x] Spanish (ES)
+  - [x] French (FR)
+  - [x] German (DE)
+  - [x] Italian (IT)
+  - [x] English (EN)
+  - [x] Language switcher component
   - [ ] Portuguese (PT)
   - [ ] Chinese (ZH)
   - [ ] Japanese (JP)
@@ -257,9 +260,9 @@ This document tracks planned features, improvements, and known issues for Harmon
 ### Security Enhancements
 - [x] Input validation utilities (email, phone, URL, password)
 - [x] SQL injection prevention (using Supabase client methods)
-- [ ] Implement Content Security Policy (CSP) - In Progress
-- [ ] Add rate limiting to Edge Functions - In Progress
-- [ ] Comprehensive Zod schema validation - In Progress
+- [x] Content Security Policy (CSP) headers configured
+- [x] Rate limiting for Edge Functions (AI chat, scanner)
+- [x] Comprehensive Zod schema validation
 - [ ] Implement IP-based access control
 - [ ] Add honeypot fields to forms
 - [ ] Security audit and penetration testing
@@ -449,6 +452,10 @@ This document tracks planned features, improvements, and known issues for Harmon
 - [x] SEO optimization (meta tags, structured data, sitemap)
 - [x] Input validation utilities
 - [x] Browser extension branding update
+- [x] Multi-language support (EN, ES, FR, DE, IT)
+- [x] Content Security Policy (CSP)
+- [x] Rate limiting for Edge Functions
+- [x] Comprehensive Zod validation schemas
 
 ---
 

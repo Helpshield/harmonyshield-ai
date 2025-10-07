@@ -1,0 +1,130 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "about": "About",
+    "contact": "Contact",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "dashboard": "Dashboard",
+    "scanner": "Scanner",
+    "deepSearch": "Deep Search",
+    "recovery": "Recovery",
+    "reports": "Reports",
+    "aiLinks": "AI Links",
+    "news": "News",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "landing": {
+    "hero": {
+      "title": "Your Digital Guardian Against Online Threats",
+      "subtitle": "Protect yourself from scams, fraud, and digital threats with AI-powered security tools",
+      "cta": "Get Started Free",
+      "learnMore": "Learn More"
+    },
+    "features": {
+      "title": "Advanced Security Features",
+      "aiScanner": {
+        "title": "AI-Powered Scanner",
+        "description": "Detect threats in files and URLs using advanced AI technology"
+      },
+      "deepSearch": {
+        "title": "Deep Search",
+        "description": "Comprehensive background checks and digital footprint analysis"
+      },
+      "recovery": {
+        "title": "Fund Recovery",
+        "description": "Expert assistance in recovering funds from fraud and scams"
+      },
+      "realtime": {
+        "title": "Real-time Protection",
+        "description": "24/7 monitoring and instant threat alerts"
+      }
+    },
+    "stats": {
+      "scamsBlocked": "Scams Blocked",
+      "usersProtected": "Users Protected",
+      "fundsRecovered": "Funds Recovered"
+    }
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInWithGoogle": "Sign in with Google",
+    "or": "OR",
+    "welcome": "Welcome back",
+    "createAccount": "Create your account"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "overview": "Overview",
+    "recentActivity": "Recent Activity",
+    "securityScore": "Security Score",
+    "threatsBlocked": "Threats Blocked",
+    "scansCompleted": "Scans Completed",
+    "activeAlerts": "Active Alerts"
+  },
+  "scanner": {
+    "title": "Security Scanner",
+    "scanFile": "Scan File",
+    "scanUrl": "Scan URL",
+    "dragDrop": "Drag & drop file here or click to browse",
+    "enterUrl": "Enter URL to scan",
+    "scanning": "Scanning",
+    "analyzing": "Analyzing",
+    "results": "Results",
+    "safe": "Safe",
+    "threat": "Threat Detected",
+    "noThreats": "No threats found",
+    "viewDetails": "View Details"
+  },
+  "recovery": {
+    "title": "Fund Recovery",
+    "crypto": "Crypto Recovery",
+    "cards": "Cards & Banking",
+    "cash": "Cash Recovery",
+    "description": "Submit your case for professional recovery assistance",
+    "submit": "Submit Request",
+    "status": "Status",
+    "pending": "Pending",
+    "inProgress": "In Progress",
+    "completed": "Completed"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "download": "Download",
+    "upload": "Upload",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "continue": "Continue",
+    "confirm": "Confirm"
+  },
+  "errors": {
+    "generic": "Something went wrong",
+    "network": "Network error. Please check your connection",
+    "unauthorized": "Unauthorized access",
+    "notFound": "Resource not found",
+    "validation": "Please check your input"
+  }
+}

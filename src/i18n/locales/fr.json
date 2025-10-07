@@ -1,0 +1,130 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "features": "Fonctionnalités",
+    "about": "À propos",
+    "contact": "Contact",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "dashboard": "Tableau de bord",
+    "scanner": "Scanner",
+    "deepSearch": "Recherche approfondie",
+    "recovery": "Récupération",
+    "reports": "Rapports",
+    "aiLinks": "Liens IA",
+    "news": "Actualités",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "landing": {
+    "hero": {
+      "title": "Votre Gardien Numérique Contre les Menaces en Ligne",
+      "subtitle": "Protégez-vous contre les arnaques, fraudes et menaces numériques avec des outils de sécurité IA",
+      "cta": "Commencer Gratuitement",
+      "learnMore": "En savoir plus"
+    },
+    "features": {
+      "title": "Fonctionnalités de Sécurité Avancées",
+      "aiScanner": {
+        "title": "Scanner IA",
+        "description": "Détectez les menaces dans les fichiers et URLs avec la technologie IA avancée"
+      },
+      "deepSearch": {
+        "title": "Recherche Approfondie",
+        "description": "Vérifications complètes et analyse de l'empreinte numérique"
+      },
+      "recovery": {
+        "title": "Récupération de Fonds",
+        "description": "Assistance d'experts pour récupérer des fonds perdus dans des fraudes"
+      },
+      "realtime": {
+        "title": "Protection en Temps Réel",
+        "description": "Surveillance 24/7 et alertes instantanées de menaces"
+      }
+    },
+    "stats": {
+      "scamsBlocked": "Arnaques Bloquées",
+      "usersProtected": "Utilisateurs Protégés",
+      "fundsRecovered": "Fonds Récupérés"
+    }
+  },
+  "auth": {
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "forgotPassword": "Mot de passe oublié?",
+    "noAccount": "Pas de compte?",
+    "hasAccount": "Vous avez déjà un compte?",
+    "signInWithGoogle": "Se connecter avec Google",
+    "or": "OU",
+    "welcome": "Bon retour",
+    "createAccount": "Créez votre compte"
+  },
+  "dashboard": {
+    "welcome": "Bon retour",
+    "overview": "Aperçu",
+    "recentActivity": "Activité Récente",
+    "securityScore": "Score de Sécurité",
+    "threatsBlocked": "Menaces Bloquées",
+    "scansCompleted": "Scans Terminés",
+    "activeAlerts": "Alertes Actives"
+  },
+  "scanner": {
+    "title": "Scanner de Sécurité",
+    "scanFile": "Scanner le Fichier",
+    "scanUrl": "Scanner l'URL",
+    "dragDrop": "Glissez-déposez le fichier ici ou cliquez pour parcourir",
+    "enterUrl": "Entrez l'URL à scanner",
+    "scanning": "Analyse en cours",
+    "analyzing": "Analyse",
+    "results": "Résultats",
+    "safe": "Sûr",
+    "threat": "Menace Détectée",
+    "noThreats": "Aucune menace trouvée",
+    "viewDetails": "Voir les Détails"
+  },
+  "recovery": {
+    "title": "Récupération de Fonds",
+    "crypto": "Récupération Crypto",
+    "cards": "Cartes et Banque",
+    "cash": "Récupération d'Espèces",
+    "description": "Soumettez votre cas pour une assistance professionnelle",
+    "submit": "Soumettre la Demande",
+    "status": "Statut",
+    "pending": "En attente",
+    "inProgress": "En cours",
+    "completed": "Terminé"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "download": "Télécharger",
+    "upload": "Téléverser",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "clear": "Effacer",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "submit": "Soumettre",
+    "continue": "Continuer",
+    "confirm": "Confirmer"
+  },
+  "errors": {
+    "generic": "Quelque chose s'est mal passé",
+    "network": "Erreur réseau. Veuillez vérifier votre connexion",
+    "unauthorized": "Accès non autorisé",
+    "notFound": "Ressource introuvable",
+    "validation": "Veuillez vérifier votre saisie"
+  }
+}

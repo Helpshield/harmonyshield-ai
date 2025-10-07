@@ -1,0 +1,130 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "features": "Funktionen",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "dashboard": "Dashboard",
+    "scanner": "Scanner",
+    "deepSearch": "Tiefensuche",
+    "recovery": "Wiederherstellung",
+    "reports": "Berichte",
+    "aiLinks": "KI-Links",
+    "news": "Nachrichten",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "logout": "Abmelden"
+  },
+  "landing": {
+    "hero": {
+      "title": "Ihr Digitaler Wächter Gegen Online-Bedrohungen",
+      "subtitle": "Schützen Sie sich vor Betrug und digitalen Bedrohungen mit KI-gestützten Sicherheitstools",
+      "cta": "Kostenlos Starten",
+      "learnMore": "Mehr Erfahren"
+    },
+    "features": {
+      "title": "Erweiterte Sicherheitsfunktionen",
+      "aiScanner": {
+        "title": "KI-Scanner",
+        "description": "Erkennen Sie Bedrohungen in Dateien und URLs mit fortschrittlicher KI-Technologie"
+      },
+      "deepSearch": {
+        "title": "Tiefensuche",
+        "description": "Umfassende Hintergrundprüfungen und Analyse digitaler Fußabdrücke"
+      },
+      "recovery": {
+        "title": "Geldwiederherstellung",
+        "description": "Expertenunterstützung bei der Wiederherstellung von Geldern aus Betrug"
+      },
+      "realtime": {
+        "title": "Echtzeit-Schutz",
+        "description": "24/7-Überwachung und sofortige Bedrohungswarnungen"
+      }
+    },
+    "stats": {
+      "scamsBlocked": "Blockierte Betrügereien",
+      "usersProtected": "Geschützte Benutzer",
+      "fundsRecovered": "Wiederhergestellte Gelder"
+    }
+  },
+  "auth": {
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort Bestätigen",
+    "forgotPassword": "Passwort vergessen?",
+    "noAccount": "Kein Konto?",
+    "hasAccount": "Bereits ein Konto?",
+    "signInWithGoogle": "Mit Google anmelden",
+    "or": "ODER",
+    "welcome": "Willkommen zurück",
+    "createAccount": "Erstellen Sie Ihr Konto"
+  },
+  "dashboard": {
+    "welcome": "Willkommen zurück",
+    "overview": "Übersicht",
+    "recentActivity": "Letzte Aktivität",
+    "securityScore": "Sicherheitsbewertung",
+    "threatsBlocked": "Blockierte Bedrohungen",
+    "scansCompleted": "Abgeschlossene Scans",
+    "activeAlerts": "Aktive Warnungen"
+  },
+  "scanner": {
+    "title": "Sicherheitsscanner",
+    "scanFile": "Datei Scannen",
+    "scanUrl": "URL Scannen",
+    "dragDrop": "Datei hier ablegen oder klicken zum Durchsuchen",
+    "enterUrl": "URL zum Scannen eingeben",
+    "scanning": "Scannen",
+    "analyzing": "Analysieren",
+    "results": "Ergebnisse",
+    "safe": "Sicher",
+    "threat": "Bedrohung Erkannt",
+    "noThreats": "Keine Bedrohungen gefunden",
+    "viewDetails": "Details Anzeigen"
+  },
+  "recovery": {
+    "title": "Geldwiederherstellung",
+    "crypto": "Krypto-Wiederherstellung",
+    "cards": "Karten & Banking",
+    "cash": "Bargeld-Wiederherstellung",
+    "description": "Reichen Sie Ihren Fall für professionelle Unterstützung ein",
+    "submit": "Anfrage Senden",
+    "status": "Status",
+    "pending": "Ausstehend",
+    "inProgress": "In Bearbeitung",
+    "completed": "Abgeschlossen"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Ansehen",
+    "download": "Herunterladen",
+    "upload": "Hochladen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "clear": "Löschen",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "submit": "Absenden",
+    "continue": "Fortfahren",
+    "confirm": "Bestätigen"
+  },
+  "errors": {
+    "generic": "Etwas ist schief gelaufen",
+    "network": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung",
+    "unauthorized": "Unbefugter Zugriff",
+    "notFound": "Ressource nicht gefunden",
+    "validation": "Bitte überprüfen Sie Ihre Eingabe"
+  }
+}

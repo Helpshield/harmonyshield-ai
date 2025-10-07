@@ -1,6 +1,7 @@
 import React from 'react';
 import { Shield } from 'lucide-react';
 import NotificationSystem from '../NotificationSystem';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 
 interface SidebarHeaderProps {
   collapsed: boolean;
@@ -8,7 +9,7 @@ interface SidebarHeaderProps {
 
 export const SidebarHeader: React.FC<SidebarHeaderProps> = ({ collapsed }) => {
   return (
-    <div className="p-4 border-b bg-gradient-primary">
+    <div className="p-4 border-b bg-gradient-primary space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-white/10 rounded-lg">
@@ -23,6 +24,11 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({ collapsed }) => {
         </div>
         {!collapsed && <NotificationSystem />}
       </div>
+      {!collapsed && (
+        <div className="pt-2">
+          <LanguageSwitcher />
+        </div>
+      )}
     </div>
   );
 };
