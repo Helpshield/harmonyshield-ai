@@ -558,7 +558,7 @@ const LandingPage = () => {
                 <p className="text-xs text-muted-foreground mb-2">Get security updates</p>
                 <div className="flex items-center space-x-2 text-muted-foreground">
                   <Mail className="h-4 w-4" />
-                  <span className="text-sm">support@harmonyshield.com</span>
+                  <span className="text-sm">support@harmonyshield.online</span>
                 </div>
                 <div className="flex items-center space-x-2 text-muted-foreground">
                   <Phone className="h-4 w-4" />
