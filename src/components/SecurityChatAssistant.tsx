@@ -6,13 +6,16 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { rateLimiter, RATE_LIMITS } from '@/lib/rateLimiter';
+import { chatMessageSchema } from '@/lib/validationSchemas';
 import { 
   Bot, 
   Send, 
   Shield, 
   RefreshCw,
   Trash2,
-  Sparkles
+  Sparkles,
+  AlertCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -47,6 +50,28 @@ const SecurityChatAssistant = () => {
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
+
+    // Validate message with Zod
+    const validation = chatMessageSchema.safeParse({ message: inputMessage });
+    if (!validation.success) {
+      toast({
+        title: "Invalid Input",
+        description: validation.error.errors[0].message,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Check client-side rate limit
+    if (rateLimiter.isRateLimited('ai-chat', RATE_LIMITS.AI_CHAT)) {
+      const remaining = rateLimiter.getRemainingRequests('ai-chat', RATE_LIMITS.AI_CHAT);
+      toast({
+        title: "Rate Limit Reached",
+        description: `Please wait before sending more messages. You can send ${remaining} more messages soon.`,
+        variant: "destructive",
+      });
+      return;
+    }
     
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
@@ -61,10 +86,21 @@ const SecurityChatAssistant = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('ai-security-chat', {
-        body: { message: inputMessage, requestType: 'chat' }
+        body: { message: validation.data.message, requestType: 'chat' }
       });
 
-      if (error) throw error;
+      if (error) {
+        // Check for rate limit error
+        if (error.message?.includes('Rate limit') || error.message?.includes('429')) {
+          toast({
+            title: "Too Many Requests",
+            description: "You've sent too many messages. Please wait a moment before trying again.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
 
       const aiMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),

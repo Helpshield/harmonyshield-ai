@@ -28,6 +28,7 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://hgqhgwdzsyqrjtthsmyg.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://hgqhgwdzsyqrjtthsmyg.supabase.co https://ai.gateway.lovable.dev wss://hgqhgwdzsyqrjtthsmyg.supabase.co; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
 
 # Cache static assets
 [[headers]]

@@ -1,5 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { checkRateLimit, getRateLimitIdentifier, createRateLimitResponse } from '../_shared/rateLimiter.ts';
 
 const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
 
@@ -80,28 +82,78 @@ serve(async (req) => {
   }
 
   try {
+    // Get user ID from auth header
+    const authHeader = req.headers.get('Authorization');
+    let userId: string | undefined;
+    
+    if (authHeader) {
+      const supabase = createClient(
+        Deno.env.get('SUPABASE_URL') ?? '',
+        Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+        { global: { headers: { Authorization: authHeader } } }
+      );
+      
+      const { data: { user } } = await supabase.auth.getUser();
+      userId = user?.id;
+    }
+
+    // Check rate limit
+    const identifier = getRateLimitIdentifier(req, userId);
+    const rateLimit = checkRateLimit(identifier, 'AI_CHAT');
+    
+    if (!rateLimit.allowed) {
+      console.log('Rate limit exceeded for:', identifier);
+      return createRateLimitResponse(rateLimit.resetAt, corsHeaders);
+    }
+
     if (req.method === 'POST') {
       const { message, requestType = 'chat' } = await req.json();
 
-      console.log('Harmony AI Chat request:', { message, requestType });
+      console.log('Harmony AI Chat request:', { message, requestType, remaining: rateLimit.remaining });
 
       if (requestType === 'chat') {
-        if (!message) {
+        // Validate input
+        if (!message || typeof message !== 'string') {
           return new Response(JSON.stringify({ 
-            error: 'Message is required' 
+            error: 'Message is required and must be a string' 
           }), {
             status: 400,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' },
           });
         }
 
-        const aiResponse = await getChatResponse(message);
+        // Length validation
+        if (message.trim().length < 1) {
+          return new Response(JSON.stringify({ 
+            error: 'Message cannot be empty' 
+          }), {
+            status: 400,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          });
+        }
+
+        if (message.length > 2000) {
+          return new Response(JSON.stringify({ 
+            error: 'Message must be less than 2000 characters' 
+          }), {
+            status: 400,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          });
+        }
+
+        const aiResponse = await getChatResponse(message.trim());
         
         return new Response(JSON.stringify({
           response: aiResponse,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          rateLimitRemaining: rateLimit.remaining
         }), {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          headers: { 
+            ...corsHeaders, 
+            'Content-Type': 'application/json',
+            'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+            'X-RateLimit-Reset': new Date(rateLimit.resetAt).toISOString(),
+          },
         });
       }
     }
