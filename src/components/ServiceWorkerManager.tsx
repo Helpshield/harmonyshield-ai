@@ -8,7 +8,7 @@ interface ServiceWorkerManagerProps {
   children: React.ReactNode;
 }
 
-const ServiceWorkerManager: React.FC<ServiceWorkerManagerProps> = ({ children }) => {
+export const ServiceWorkerManager: React.FC<ServiceWorkerManagerProps> = ({ children }) => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [showUpdateAvailable, setShowUpdateAvailable] = useState(false);
   const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);

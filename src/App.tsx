@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { queryClient } from "./lib/queryClient";
-import ServiceWorkerManager from "./components/ServiceWorkerManager";
+import { ServiceWorkerManager } from "./components/ServiceWorkerManager";
 import { AdminLoadingFallback } from "./components/lazy/LazyAdminComponents";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingFallback from "./components/LoadingFallback";
