@@ -255,7 +255,10 @@ This document tracks planned features, improvements, and known issues for Harmon
   - [ ] Sentry integration
   - [ ] Custom metrics
   - [ ] User timing API
-- [ ] TypeScript strict mode
+- [x] TypeScript strict mode (enabled in config - tsconfig files are read-only)
+- [x] Centralized error handling utilities
+- [ ] Component organization (breaking down large components)
+- [ ] Remove unused code and dependencies
 
 ### Security Enhancements
 - [x] Input validation utilities (email, phone, URL, password)
@@ -365,9 +368,9 @@ This document tracks planned features, improvements, and known issues for Harmon
 ## 🔄 Refactoring Tasks
 
 ### Code Organization
-- [ ] Split large components into smaller ones
+- [ ] Split large components into smaller ones (AdminDashboard, etc.)
 - [ ] Extract common logic into custom hooks
-- [ ] Standardize error handling
+- [x] Standardize error handling (centralized utilities created)
 - [ ] Implement consistent naming conventions
 - [ ] Remove deprecated code
 - [ ] Update outdated dependencies
@@ -452,10 +455,12 @@ This document tracks planned features, improvements, and known issues for Harmon
 - [x] SEO optimization (meta tags, structured data, sitemap)
 - [x] Input validation utilities
 - [x] Browser extension branding update
-- [x] Multi-language support (EN, ES, FR, DE, IT)
+- [x] Multi-language support (EN, ES, FR, DE, IT) with react-i18next
+- [x] Language switcher in Preferences tab
 - [x] Content Security Policy (CSP)
-- [x] Rate limiting for Edge Functions
+- [x] Rate limiting for Edge Functions (client & server-side)
 - [x] Comprehensive Zod validation schemas
+- [x] Centralized error handling with typed error classes
 
 ---
 

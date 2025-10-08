@@ -7,6 +7,7 @@ import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Bell, Moon, Globe, Volume2, Monitor, Mail, Vibrate, Loader2, CheckCircle } from 'lucide-react';
 import { usePreferences } from '@/hooks/usePreferences';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 const PreferencesTab = () => {
   const { preferences, updatePreference, savePreferences, loading, saving } = usePreferences();
@@ -105,18 +106,11 @@ const PreferencesTab = () => {
           </div>
 
           <div className="space-y-2">
-            <Label>Language</Label>
-            <Select value={preferences.display.language} onValueChange={(value) => updatePreference('display', 'language', value)}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="es">Español</SelectItem>
-                <SelectItem value="fr">Français</SelectItem>
-                <SelectItem value="de">Deutsch</SelectItem>
-              </SelectContent>
-            </Select>
+            <Label className="flex items-center gap-2">
+              <Globe className="h-4 w-4" />
+              Language
+            </Label>
+            <LanguageSwitcher />
           </div>
 
           <div className="space-y-2">

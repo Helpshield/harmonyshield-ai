@@ -1,7 +1,6 @@
 import React from 'react';
 import { Shield } from 'lucide-react';
 import NotificationSystem from '../NotificationSystem';
-import { LanguageSwitcher } from '../LanguageSwitcher';
 
 interface SidebarHeaderProps {
   collapsed: boolean;
@@ -24,11 +23,6 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({ collapsed }) => {
         </div>
         {!collapsed && <NotificationSystem />}
       </div>
-      {!collapsed && (
-        <div className="pt-2">
-          <LanguageSwitcher />
-        </div>
-      )}
     </div>
   );
 };
