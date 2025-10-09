@@ -107,24 +107,10 @@ export const LazyAdminBotManagement = React.lazy(() =>
   })
 );
 
-export const LazyAdminThreatsPage = React.lazy(() => 
-  import('@/components/AdminThreatsPage').catch(error => {
-    console.error('Failed to load AdminThreatsPage:', error);
-    return { default: () => <div>Failed to load threats page</div> };
-  })
-);
-
 export const LazyAdminRecoveryJobsPage = React.lazy(() => 
   import('@/components/AdminRecoveryJobsPage').catch(error => {
     console.error('Failed to load AdminRecoveryJobsPage:', error);
     return { default: () => <div>Failed to load recovery jobs</div> };
-  })
-);
-
-export const LazyAdminAnalyticsPage = React.lazy(() => 
-  import('@/components/AdminAnalyticsPage').catch(error => {
-    console.error('Failed to load AdminAnalyticsPage:', error);
-    return { default: () => <div>Failed to load analytics page</div> };
   })
 );
 

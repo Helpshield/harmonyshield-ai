@@ -5,14 +5,11 @@ import {
   ScanLine,
   Search,
   Bot,
-  Zap,
   Link,
   Shield,
   Settings,
   Users,
-  BarChart3,
   BookOpen,
-  AlertTriangle,
   Bell,
   DollarSign
 } from 'lucide-react';
@@ -31,7 +28,6 @@ export const userNavigationItems: NavigationItem[] = [
 export const aiNavigationItems: NavigationItem[] = [
   { title: 'AI Chat Assistant', url: '/chat-assistant', icon: Bot, badge: 'NEW' },
   { title: 'AI Bots', url: '/bots', icon: Bot },
-  { title: 'AI Analyzer', url: '/analyzer', icon: Zap },
   { title: 'AI Links', url: '/links', icon: Link },
 ];
 
@@ -41,10 +37,7 @@ export const adminNavigationItems: NavigationItem[] = [
   { title: 'User Management', url: '/admin/users', icon: Users },
   { title: 'Reports Management', url: '/admin/reports', icon: FileText },
   { title: 'Bot Management', url: '/admin/bots', icon: Bot },
-  { title: 'Threat Reports', url: '/admin/threats', icon: AlertTriangle, badge: 'LIVE' },
   { title: 'Social Management', url: '/admin/social', icon: Users, badge: 'NEW' },
-  { title: 'Integration Config', url: '/admin/api-config', icon: Settings, badge: 'NEW' },
   { title: 'Admin Manual', url: '/admin/manual', icon: BookOpen },
-  { title: 'Analytics', url: '/admin/analytics', icon: BarChart3 },
   { title: 'Content Management', url: '/admin/contents', icon: Settings },
 ];

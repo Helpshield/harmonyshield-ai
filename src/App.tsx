@@ -25,18 +25,15 @@ import BotPackagesPage from "./components/BotPackagesPage";
 import AdminBotManagement from "./components/AdminBotManagement";
 import AdminUsersManagement from "./components/AdminUsersManagement";
 import AdminReportsManagement from "./components/AdminReportsManagement";
-import AdminThreatsPage from "./components/AdminThreatsPage";
 import SecurityAlertsPage from "./components/SecurityAlertsPage";
 import ProfilePage from "./pages/ProfilePage";
 import RecoveryPage from "./components/RecoveryPage";
 import AdminRecoveryJobsPage from "./components/AdminRecoveryJobsPage";
-import AdminAnalyticsPage from "./components/AdminAnalyticsPage";
 import AdminABTestingPage from "./components/AdminABTestingPage";
 import AdminContentManagement from "./components/AdminContentManagement";
 import AdminSystemMonitoring from "./components/AdminSystemMonitoring";
 import AdminSecurityCenter from "./components/AdminSecurityCenter";
 import { AdminSocialManagement } from "./components/AdminSocialManagement";
-import { AdminIntegrationConfig } from "./components/AdminIntegrationConfig";
 import SecurityChatAssistant from "./components/SecurityChatAssistant";
 import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
 import TermsOfServicePage from "./components/TermsOfServicePage";
@@ -98,9 +95,7 @@ const App = () => (
               <LazyAdminReportsManagement />
             </Suspense>
           } />
-          <Route path="/admin/threats" element={<AdminThreatsPage />} />
           <Route path="/admin/recovery" element={<AdminRecoveryJobsPage />} />
-          <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
           <Route path="/logo" element={
             <Suspense fallback={<AdminLoadingFallback />}>
               {React.createElement(React.lazy(() => import("./components/shared/Logo").then(m => ({ default: m.LogoPage }))))}
@@ -111,7 +106,6 @@ const App = () => (
         <Route path="/admin/monitoring" element={<AdminSystemMonitoring />} />
         <Route path="/admin/security" element={<AdminSecurityCenter />} />
         <Route path="/admin/social" element={<AdminSocialManagement />} />
-        <Route path="/admin/api-config" element={<AdminIntegrationConfig />} />
           <Route path="/admin/manual" element={<ManualPage />} />
           <Route path="/chat-assistant" element={
             <Suspense fallback={<LoadingFallback message="Loading AI Assistant..." />}>
