@@ -76,7 +76,7 @@ Before contributing, ensure you have:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/harmonyshield/harmonyshield.git
+   git clone https://github.com/harmonyshield/harmonyshield-ai.git
    cd harmonyshield
    ```
 
